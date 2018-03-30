@@ -1,0 +1,20 @@
+// Transitions
+//
+
+// .fade-enter
+// .fade-enter-active
+// .fade-enter-to
+// .fade-leave
+// .fade-leave-active
+// .fade-leave-to
+
+.slide-enter-active {
+  transition: all .5s ease;
+}
+.slide-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-enter, .slide-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}

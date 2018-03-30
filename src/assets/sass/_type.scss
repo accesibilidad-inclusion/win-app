@@ -1,0 +1,15 @@
+// Type
+//
+
+// El diseño determinó por defecto un tamaño tipográfico de 18px
+// Se configura el tamaño en el <html> y se utiliza el valor para calcular un factor
+// que permita configurar los tamaños en la misma relación de 1rem = 16px
+html {
+	font-size: $font-size-html;
+}
+
+// Corrige la asignación de bold de los elementos base
+b,
+strong {
+  font-weight: $font-weight-bold;
+}

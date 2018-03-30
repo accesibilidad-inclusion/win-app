@@ -1,0 +1,37 @@
+// Layout
+//
+
+body {
+  @extend .bg-main;
+  overflow-x: hidden;
+}
+
+.container {
+  @extend .container-fluid;
+}
+
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  padding-top: $spacer;
+  padding-bottom: $spacer;
+}
+
+.welcome-help {
+  padding: $spacer;
+  color: $gray;
+  background-color: $white;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

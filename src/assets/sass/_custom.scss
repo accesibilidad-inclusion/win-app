@@ -1,0 +1,76 @@
+// Custom Variables
+//
+// Se reescriben las variables declaradas por defecto en bootstrap
+
+// Colores primarios
+$white:                   #fff;
+$gray:                    #626262;
+$brand-orange:            #ff744b;
+$brand-green:             #34c595;
+
+// Colores de fondo
+$bg-main-top:             #007faa;
+$bg-main-bottom:          #3e96bb;
+$bg-alt1-top:             #8787C1;
+$bg-alt1-bottom:          #669;
+$bg-alt2-top:             #bc4681;
+$bg-alt2-bottom:          #936;
+$bg-alt3-top:             #c06;
+$bg-alt3-bottom:          #e73c70;
+$bg-alt4-top:             #2574a9;
+$bg-alt4-bottom:          #205d86;
+
+// Para botones
+$light:                   $white;
+
+// Enabled
+$enable-rounded:          false;
+
+// Body
+$body-color:              $white;
+
+// Spacing
+$spacer:                  1rem;
+
+// Paragraphs
+$paragraph-margin-bottom: $spacer * .5;
+
+// Grid
+$container-max-widths: (
+  sm: 100%,
+  md: 100%,
+  lg: 960px,
+  xl: 1140px
+);
+
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+// Font
+$font-size-html:          18px;
+$font-size-adjust:        16 / 18;
+
+$font-family-sans-serif:  'Open Sans', Roboto, 'Helvetica Neue', sans-serif;
+$font-size-base:          1rem; // 16px
+$font-weight-base:        600;
+
+$h1-font-size:            $font-size-base * 2 * $font-size-adjust;
+$h2-font-size:            $font-size-base * 1.75 * $font-size-adjust;
+$h3-font-size:            $font-size-base * 1.5 * $font-size-adjust;
+$h4-font-size:            $font-size-base * 1.35 * $font-size-adjust;
+$h5-font-size:            $font-size-base * 1.15 * $font-size-adjust;
+$h6-font-size:            $font-size-base * $font-size-adjust;
+
+$headings-font-weight:    $font-weight-base;
+$headings-line-height:    1.3;
+$headings-margin-bottom:  $spacer * .5;
+
+$lead-font-size:          $font-size-base * 1.25 * $font-size-adjust;
+$lead-font-weight:        $font-weight-base;
+
+$small-font-size:         $font-size-base * .875 * $font-size-adjust;
+
+// Buttons
+$btn-disabled-opacity:    .2;
+
+// Custom elements
+$custom-control-indicator-checked-color: $brand-green;

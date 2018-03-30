@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="18px" viewBox="0 0 10 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>chevron-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="propuesta-1-correccion" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_bienvenida" transform="translate(-13.000000, -11.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="atras">
+                <g id="chevron-left" transform="translate(13.000000, 11.000000)">
+                    <path d="M3.34585719,8.9979903 L9.87931498,2.00019779 C10.0434329,1.82736317 10.0395254,1.54198507 9.87149984,1.36513104 L8.70313627,0.135191634 C8.53511074,-0.0416623981 8.26158081,-0.045681808 8.09746285,0.127152814 L0.118204006,8.6724181 C0.0322374562,8.76084512 -0.00683824828,8.88142741 0.000976892611,8.9979903 C-0.00293067783,9.11857259 0.0361450266,9.23513547 0.118204006,9.32356249 L8.09746285,17.8728472 C8.26158081,18.0456818 8.53511074,18.0416624 8.70313627,17.8648084 L9.87149984,16.634869 C10.0395254,16.4580149 10.0434329,16.1726368 9.87931498,15.9998022 L3.34585719,8.9979903 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

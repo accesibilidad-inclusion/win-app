@@ -1,0 +1,23 @@
+// Screen Backgrounds
+//
+// Establece clases para el color de fondo de las pantallas
+
+.bg-main {
+	@include gradient-y($bg-main-top, $bg-main-bottom);
+}
+
+.bg-alt1 {
+	@include gradient-y($bg-alt1-top, $bg-alt1-bottom);
+}
+
+.bg-alt2 {
+	@include gradient-y($bg-alt2-top, $bg-alt2-bottom);
+}
+
+.bg-alt3 {
+	@include gradient-y($bg-alt3-top, $bg-alt3-bottom);
+}
+
+.bg-alt4 {
+	@include gradient-y($bg-alt4-top, $bg-alt4-bottom);
+}
