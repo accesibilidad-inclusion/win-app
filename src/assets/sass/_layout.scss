@@ -20,8 +20,8 @@ body {
 }
 
 .main {
-  padding-top: $spacer;
-  padding-bottom: $spacer;
+  padding-top: $spacer/2;
+  padding-bottom: $spacer/2;
 }
 
 .welcome-help {
@@ -34,4 +34,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  @include media-breakpoint-up(lg) {
+    padding-bottom: $spacer;
+  }
 }

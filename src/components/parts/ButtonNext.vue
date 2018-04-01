@@ -31,6 +31,9 @@ export default {
   margin-bottom: $grid-gutter-width / 2;
   padding-left: $spacer*1.5;
   padding-right: $spacer*1.5;
-  box-shadow: 0 0 10px 5px rgba($black, .1);
+  box-shadow: $input-btn-focus-box-shadow;
+  &:hover {
+    background-color: $white;
+  }
 }
 </style>

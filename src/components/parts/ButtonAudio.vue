@@ -34,8 +34,13 @@ export default {
   padding: 0;
   line-height: 100%;
   text-align: center;
-  border-top-right-radius: 100%;
+  border-radius: 50%;
   background-color: $brand-orange;
+
+  @include media-breakpoint-down(lg) {
+    border-radius: 0;
+    border-top-right-radius: 100%;
+  }
 }
 
 // Default HTML Audio
@@ -51,10 +56,12 @@ export default {
     float: left;
     margin-left: ($grid-gutter-width/2) * -1;
   }
-  .btn-audio {
-    .svg-icon {
-      margin-left: -15px;
-      margin-bottom: -10px;
+  @include media-breakpoint-down(lg) {
+    .btn-audio {
+      .svg-icon {
+        margin-left: -15px;
+        margin-bottom: -10px;
+      }
     }
   }
 }

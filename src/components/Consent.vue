@@ -4,14 +4,14 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Estás en situación de discapacidad?</h2>
-      <br>
+      <h2 class="mb-3">Consentimiento</h2>
+      <p class="mb-4">Tus datos personales serán privados y tendras acceso a todas tus respuestas. Todas las respuestas que ingreses a la aplicación serán analizadas de forma estrictamente confidencial por el equipo WIN</p>
       <form class="row">
         <div class="col-6 pr-4">
-          <button-option :name="'hasDisability'" :realValue="true" :value="selectedValue" :isLarge="true" @change="changeValue">Sí</button-option>
+          <button-option :name="'acceptConsent'" :realValue="false" :value="selectedValue" @change="changeValue">No acepto</button-option>
         </div>
         <div class="col-6 pl-4">
-          <button-option :name="'hasDisability'" :realValue="false" :value="selectedValue" :isLarge="true" @change="changeValue">No</button-option>
+          <button-option :name="'acceptConsent'" :realValue="true" :value="selectedValue" @change="changeValue">Sí acepto</button-option>
         </div>
       </form>
     </div>
@@ -29,7 +29,7 @@ import ButtonNext from './parts/ButtonNext'
 import ButtonOption from './parts/ButtonOption'
 
 export default {
-  name: 'Disability',
+  name: 'Consent',
   components: {
     ButtonAudio,
     ButtonPrev,
@@ -51,7 +51,7 @@ export default {
       return this.selectedValue !== null
     },
     continueTo: function () {
-      return this.selectedValue === true ? '/disability-details' : '/consent'
+      return this.selectedValue === true ? '/registry-names' : '/welcome'
     }
   }
 }

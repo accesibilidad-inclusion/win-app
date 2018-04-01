@@ -1,7 +1,7 @@
 <template>
   <div class="screen bg-main justify-content-between">
     <header class="header container">
-      <button-prev :linkTo="'/disability'"></button-prev>
+      <button-prev></button-prev>
     </header>
     <div class="main container">
       <h2>¿Qué tipo de discapacidad tienes?</h2>

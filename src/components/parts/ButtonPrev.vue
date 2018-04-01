@@ -1,13 +1,29 @@
 <template>
-  <router-link v-bind:to="linkTo" class="btn-prev">
+  <a href="javascript:history.go(-1)" class="btn-prev">
     <svgicon name="chevron-left" width="18" height="18" color="#fff"></svgicon>
-  </router-link>
+  </a>
 </template>
 
 <script>
 import '@/assets/icons/chevron-left'
 export default {
-  name: 'ButtonPrev',
-  props: ['linkTo']
+  name: 'ButtonPrev'
 }
 </script>
+
+<style lang="scss" scoped>
+@import "./../../assets/sass/main.scss";
+
+.btn-prev {
+  @extend .btn;
+  width: 40px;
+  height: 40px;
+  margin-left: ($grid-gutter-width/2) * -1;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: rgba($white, .2);
+  &:focus{
+    box-shadow: $input-btn-focus-box-shadow;
+  }
+}
+</style>

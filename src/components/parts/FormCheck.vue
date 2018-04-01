@@ -2,7 +2,7 @@
 
 <template>
   <div class="form-check">
-    <input type="checkbox" class="form-check-input" :name="name" :id="id" v-bind:checked="checked" v-on:change="$emit('change', $event.target.value)">
+    <input type="checkbox" class="form-check-input" :id="id" :value="value" v-bind:checked="checked" v-on:change="$emit('change', $event.target.value)">
     <label :for="id" class="form-check-label"><slot></slot></label>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   props: {
     checked: Array,
     id: String,
-    name: String
+    value: String
   }
 }
 </script>

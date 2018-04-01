@@ -69,8 +69,17 @@ $lead-font-weight:        $font-weight-base;
 
 $small-font-size:         $font-size-base * .875 * $font-size-adjust;
 
-// Buttons
-$btn-disabled-opacity:    .2;
+// Input & Buttons
+$input-btn-focus-color:       $white;
+$input-btn-focus-box-shadow:  0 0 10px 5px rgba(#000, .1);
+$input-border-width:          0;
+$input-placeholder-color:     rgba($gray, .5);
+$btn-disabled-opacity:        .2;
 
 // Custom elements
 $custom-control-indicator-checked-color: $brand-green;
+$custom-select-indicator-color:     $brand-green;
+$custom-select-bg-size:             50px 50px;
+$custom-select-indicator:           str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cpath fill='#{$custom-select-indicator-color}' d='M0 0h50v50H0V0zm25 28.654l-7-6.533a.467.467 0 0 0-.635.008l-1.23 1.168a.415.415 0 0 0-.008.606l8.547 7.979a.452.452 0 0 0 .326.117.426.426 0 0 0 .326-.117l8.547-7.98a.415.415 0 0 0-.008-.605l-1.23-1.168A.467.467 0 0 0 32 22.12l-7 6.533z'/%3E%3C/svg%3E"), "#", "%23") !default;
+
+
