@@ -24,7 +24,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/sass/main.scss";
+@import "~bootstrap/scss/functions";
+@import "./../../assets/sass/_custom.scss";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/buttons";
 
 // Button
 .btn-audio {

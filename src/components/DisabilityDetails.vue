@@ -62,7 +62,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/sass/main.scss";
+@import "~bootstrap/scss/functions";
+@import "./../assets/sass/_custom.scss";
+
 .custom-checkbox {
   margin-bottom: 5px;
   padding: 0 !important;
