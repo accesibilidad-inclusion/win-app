@@ -10,6 +10,7 @@ import Consent from '@/components/Consent'
 import RegistryNames from '@/components/RegistryNames'
 import RegistryBirthday from '@/components/RegistryBirthday'
 import RegistrySex from '@/components/RegistrySex'
+import RegistryJob from '@/components/RegistryJob'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
       path: '/registry-sex',
       name: 'Registro - Sexo',
       component: RegistrySex
+    },
+    {
+      path: '/registry-job',
+      name: 'Registro - Trabajo',
+      component: RegistryJob
     }
   ]
 })

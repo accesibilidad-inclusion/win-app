@@ -9,11 +9,11 @@
       <form>
         <div class="form-group mb-4">
           <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" class="form-control" v-model="user.name" placeholder="Escribe tu nombre">
+          <input type="text" id="name" name="name" class="form-control" v-model="name" @keyup="changeName" placeholder="Escribe tu nombre">
         </div>
         <div class="form-group">
           <label for="lastname">Apellido</label>
-          <input type="text" id="lastname" name="lastname" class="form-control" v-model="user.lastname" placeholder="Escribe tu apellido">
+          <input type="text" id="lastname" name="lastname" class="form-control" v-model="lastname" @keyup="changeLastname" placeholder="Escribe tu apellido">
         </div>
       </form>
     </div>
@@ -36,17 +36,27 @@ export default {
     ButtonPrev,
     ButtonNext
   },
-  data: function () {
+  data () {
     return {
-      user: {
-        name: '',
-        lastname: ''
-      }
+      name: this.$store.state.user.name,
+      lastname: this.$store.state.user.lastname
+    }
+  },
+  methods: {
+    changeName (event) {
+      const value = event.target.value.trim()
+      this.name = value
+      this.$store.commit('name', value)
+    },
+    changeLastname (event) {
+      const value = event.target.value.trim()
+      this.lastname = value
+      this.$store.commit('lastname', value)
     }
   },
   computed: {
-    canContinue: function () {
-      return this.user.name !== '' && this.user.lastname !== ''
+    canContinue () {
+      return this.name !== '' && this.lastname !== ''
     }
   }
 }

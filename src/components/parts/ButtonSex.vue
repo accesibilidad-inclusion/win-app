@@ -44,6 +44,8 @@ export default {
 
 .button-sex {
   display: block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   & .wrapper {
     display: flex;
     flex-direction: column;
@@ -51,6 +53,7 @@ export default {
     align-items: center;
     color: $gray;
     background-color: rgba($white, .2);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     transition: $transition-base;
   }
   & .icon,

@@ -6,6 +6,9 @@
 // que permita configurar los tamaños en la misma relación de 1rem = 16px
 html {
 	font-size: $font-size-html;
+  @include media-breakpoint-up(lg) {
+    font-size: $font-size-html * 1.25;
+  }
 }
 
 // Corrige la asignación de bold de los elementos base

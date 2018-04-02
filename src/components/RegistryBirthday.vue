@@ -8,15 +8,15 @@
       <form>
         <div class="form-group mb-3 mr-4">
           <label for="day">Día</label>
-          <form-select :id="'day'" :options="days" :optionDefault="'Selecciona el día'" v-model="user.dayBirth"></form-select>
+          <form-select :id="'day'" :options="days" :optionDefault="'Selecciona el día'" v-model="dayBirth" @input="dayChange"></form-select>
         </div>
         <div class="form-group mb-3 mr-4">
           <label for="month">Mes</label>
-          <form-select :id="'month'" :options="months" :optionDefault="'Selecciona el mes'" v-model="user.monthBirth"></form-select>
+          <form-select :id="'month'" :options="months" :optionDefault="'Selecciona el mes'" v-model="monthBirth" @input="monthChange"></form-select>
         </div>
         <div class="form-group">
           <label for="ano">Año</label>
-          <form-select :id="'year'" :options="years" :optionDefault="'Selecciona el año'" v-model="user.yearBirth"></form-select>
+          <form-select :id="'year'" :options="years" :optionDefault="'Selecciona el año'" v-model="yearBirth" @input="yearChange"></form-select>
         </div>
       </form>
     </div>
@@ -41,29 +41,18 @@ export default {
     ButtonNext,
     FormSelect
   },
-  data: function () {
+  data () {
     return {
-      user: {
-        dayBirth: '',
-        monthBirth: '',
-        yearBirth: ''
-      }
-    }
-  },
-  methods: {
-    arrayInts: function (start, end) {
-      var array = []
-      for (var i = start; i <= end; i++) {
-        array.push({ 'value': i, 'text': i })
-      }
-      return array
+      dayBirth: this.$store.state.user.dayBirth,
+      monthBirth: this.$store.state.user.monthBirth,
+      yearBirth: this.$store.state.user.yearBirth
     }
   },
   computed: {
-    days: function () {
+    days () {
       return this.arrayInts(1, 31)
     },
-    months: function () {
+    months () {
       return [
         { value: '1', text: 'Enero' },
         { value: '2', text: 'Febrero' },
@@ -79,12 +68,30 @@ export default {
         { value: '12', text: 'Diciembre' }
       ]
     },
-    years: function () {
+    years () {
       var end = new Date().getFullYear()
       return this.arrayInts(1930, end).reverse()
     },
-    canContinue: function () {
-      return this.user.dayBirth !== '' && this.user.dayBirth !== '' && this.user.yearBirth !== ''
+    canContinue () {
+      return this.dayBirth !== null && this.dayBirth !== null && this.yearBirth !== null
+    }
+  },
+  methods: {
+    dayChange (value) {
+      this.$store.commit('dayBirth', value)
+    },
+    monthChange (value) {
+      this.$store.commit('monthBirth', value)
+    },
+    yearChange (value) {
+      this.$store.commit('yearBirth', value)
+    },
+    arrayInts (start, end) {
+      var array = []
+      for (var i = start; i <= end; i++) {
+        array.push({ 'value': i, 'text': i })
+      }
+      return array
     }
   }
 }

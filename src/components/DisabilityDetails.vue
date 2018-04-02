@@ -8,23 +8,23 @@
       <p>Puedes seleccionar más de una</p>
       <form>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="intelectual" id="intelectual" v-model="types">
+          <input type="checkbox" class="custom-control-input" value="intelectual" id="intelectual" v-model="types" @change="update">
           <label for="intelectual" class="custom-control-label">Intelectual</label>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="fisica" id="fisica" v-model="types">
+          <input type="checkbox" class="custom-control-input" value="fisica" id="fisica" v-model="types" @change="update">
           <label for="fisica" class="custom-control-label">Física</label>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="auditiva" id="auditiva" v-model="types">
+          <input type="checkbox" class="custom-control-input" value="auditiva" id="auditiva" v-model="types" @change="update">
           <label for="auditiva" class="custom-control-label">Auditiva</label>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="visual" id="visual" v-model="types">
+          <input type="checkbox" class="custom-control-input" value="visual" id="visual" v-model="types" @change="update">
           <label for="visual" class="custom-control-label">Visual</label>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="otra" id="otra" v-model="types">
+          <input type="checkbox" class="custom-control-input" value="otra" id="otra" v-model="types" @change="update">
           <label for="otra" class="custom-control-label">Otra</label>
         </div>
       </form>
@@ -50,11 +50,22 @@ export default {
   },
   data () {
     return {
-      types: []
+      types: this.$store.state.user.disabilityTypes
+    }
+  },
+  methods: {
+    update (event) {
+      const value = event.target.value
+      const checked = event.target.checked
+      if (checked) {
+        this.$store.commit('disabilityAdd', value)
+      } else {
+        this.$store.commit('disabilityRemove', value)
+      }
     }
   },
   computed: {
-    canContinue: function () {
+    canContinue () {
       return this.types.length > 0
     }
   }
@@ -90,8 +101,10 @@ export default {
     width: $spacer * 1.5625;
     height: $spacer * 1.5625;
   }
-  & .custom-control-input:checked ~ .custom-control-label::before {
+  & .custom-control-input ~ .custom-control-label::before {
     background-color: $white;
+  }
+  & .custom-control-input:checked ~ .custom-control-label::before {
     box-shadow: 0 0 0 3px $brand-green;
   }
 }

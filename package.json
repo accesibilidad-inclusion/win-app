@@ -9,14 +9,15 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "svg" : "vsvg -s ./static/svg/src -t ./src/assets/icons"
+    "svg": "vsvg -s ./static/svg/src -t ./src/assets/icons"
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
-    "vue-spinner": "^1.0.3"
+    "vue-spinner": "^1.0.3",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

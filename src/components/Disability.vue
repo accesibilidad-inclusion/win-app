@@ -36,21 +36,22 @@ export default {
     ButtonNext,
     ButtonOption
   },
-  data: function () {
+  data () {
     return {
-      selectedValue: null
+      selectedValue: this.$store.state.user.disability
     }
   },
   methods: {
-    changeValue: function (newValue) {
+    changeValue (newValue) {
       this.selectedValue = newValue
+      this.$store.commit('disability', newValue)
     }
   },
   computed: {
-    canContinue: function () {
+    canContinue () {
       return this.selectedValue !== null
     },
-    continueTo: function () {
+    continueTo () {
       return this.selectedValue === true ? '/disability-details' : '/consent'
     }
   }

@@ -2,8 +2,15 @@
 //
 
 body {
-  @extend .bg-main;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   overflow-x: hidden;
+}
+
+#app {
+  @extend .bg-main;
+  height: 100%;
 }
 
 .container {
@@ -15,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 100vw;
-  min-height: 100vh;
+  min-height: 100%;
   overflow-x: hidden;
 }
 

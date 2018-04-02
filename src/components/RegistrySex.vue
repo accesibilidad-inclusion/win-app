@@ -7,10 +7,10 @@
       <h2 class="mb-3">Indica tu sexo</h2>
       <form class="row">
         <div class="col-6 pr-2">
-          <button-sex :name="'sex'" :defaultValue="'male'" :value="user.sex" @change="changeValue">Hombre</button-sex>
+          <button-sex :name="'sex'" :defaultValue="'male'" :value="selectedValue" @change="changeValue">Hombre</button-sex>
         </div>
         <div class="col-6 pl-2">
-          <button-sex :name="'sex'" :defaultValue="'female'" :value="user.sex" @change="changeValue">Mujer</button-sex>
+          <button-sex :name="'sex'" :defaultValue="'female'" :value="selectedValue" @change="changeValue">Mujer</button-sex>
         </div>
       </form>
     </div>
@@ -35,21 +35,20 @@ export default {
     ButtonNext,
     ButtonSex
   },
-  data: function () {
+  data () {
     return {
-      user: {
-        sex: ''
-      }
+      selectedValue: this.$store.state.user.sex
     }
   },
   methods: {
-    changeValue: function (newValue) {
-      this.user.sex = newValue
+    changeValue (newValue) {
+      this.selectedValue = newValue
+      this.$store.commit('sex', newValue)
     }
   },
   computed: {
-    canContinue: function () {
-      return this.user.sex !== ''
+    canContinue () {
+      return this.selectedValue !== null
     }
   }
 }

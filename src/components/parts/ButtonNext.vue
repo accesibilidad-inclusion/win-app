@@ -35,6 +35,7 @@ export default {
   padding-left: $spacer*1.5;
   padding-right: $spacer*1.5;
   box-shadow: $input-btn-focus-box-shadow;
+  transition: $transition-base;
   &:hover {
     background-color: $white;
   }
