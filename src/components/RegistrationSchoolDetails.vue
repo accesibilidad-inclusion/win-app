@@ -4,16 +4,16 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">¿Dónde trabajas?</h2>
+      <h2 class="mb-3">¿A qué centro asistes o asististe?</h2>
       <form>
         <div class="form-group mb-4">
-          <input type="text" class="form-control" v-model="jobPlace" @keyup="changeValue" placeholder="Ingresa tu lugar de trabajo">
+          <input type="text" class="form-control" v-model="schoolName" @keyup="changeValue" placeholder="Ingresa el nombre del centro">
         </div>
       </form>
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/registry-school'" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/registration-success'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -24,7 +24,7 @@ import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
 
 export default {
-  name: 'RegistryJobDetails',
+  name: 'RegistrationSchoolDetails',
   components: {
     ButtonAudio,
     ButtonPrev,
@@ -32,19 +32,19 @@ export default {
   },
   data () {
     return {
-      jobPlace: this.$store.state.user.jobPlace
+      schoolName: this.$store.state.user.schoolName
     }
   },
   methods: {
     changeValue (event) {
       const value = event.target.value
-      this.jobPlace = value
-      this.$store.commit('jobPlace', value)
+      this.schoolName = value
+      this.$store.commit('schoolName', value)
     }
   },
   computed: {
     canContinue () {
-      return this.jobPlace !== ''
+      return this.schoolName !== ''
     }
   }
 }

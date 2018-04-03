@@ -16,7 +16,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/registry-job'" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/registration-job'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -28,7 +28,7 @@ import ButtonNext from './parts/ButtonNext'
 import ButtonSex from './parts/ButtonSex'
 
 export default {
-  name: 'RegistrySex',
+  name: 'RegistrationSex',
   components: {
     ButtonAudio,
     ButtonPrev,

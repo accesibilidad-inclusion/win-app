@@ -21,7 +21,7 @@ import ButtonNext from './parts/ButtonNext'
 import ButtonOption from './parts/ButtonOption'
 
 export default {
-  name: 'RegistrySuccess',
+  name: 'RegistrationSuccess',
   components: {
     ButtonAudio,
     ButtonPrev,

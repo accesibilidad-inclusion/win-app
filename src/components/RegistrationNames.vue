@@ -19,7 +19,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/registry-birthday'" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/registration-birthday'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -30,7 +30,7 @@ import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
 
 export default {
-  name: 'RegistryNames',
+  name: 'RegistrationNames',
   components: {
     ButtonAudio,
     ButtonPrev,

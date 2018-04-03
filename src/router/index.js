@@ -7,14 +7,14 @@ import Welcome from '@/components/Welcome'
 import Disability from '@/components/Disability'
 import DisabilityDetails from '@/components/DisabilityDetails'
 import Consent from '@/components/Consent'
-import RegistryNames from '@/components/RegistryNames'
-import RegistryBirthday from '@/components/RegistryBirthday'
-import RegistrySex from '@/components/RegistrySex'
-import RegistryJob from '@/components/RegistryJob'
-import RegistryJobDetails from '@/components/RegistryJobDetails'
-import RegistrySchool from '@/components/RegistrySchool'
-import RegistrySchoolDetails from '@/components/RegistrySchoolDetails'
-import RegistrySuccess from '@/components/RegistrySuccess'
+import RegistrationNames from '@/components/RegistrationNames'
+import RegistrationBirthday from '@/components/RegistrationBirthday'
+import RegistrationSex from '@/components/RegistrationSex'
+import RegistrationJob from '@/components/RegistrationJob'
+import RegistrationJobDetails from '@/components/RegistrationJobDetails'
+import RegistrationSchool from '@/components/RegistrationSchool'
+import RegistrationSchoolDetails from '@/components/RegistrationSchoolDetails'
+import RegistrationSuccess from '@/components/RegistrationSuccess'
 
 Vue.use(Router)
 
@@ -46,44 +46,44 @@ export default new Router({
       component: Consent
     },
     {
-      path: '/registry-names',
+      path: '/registration-names',
       name: 'Registro - Nombres',
-      component: RegistryNames
+      component: RegistrationNames
     },
     {
-      path: '/registry-birthday',
+      path: '/registration-birthday',
       name: 'Registro - Fecha de nacimiento',
-      component: RegistryBirthday
+      component: RegistrationBirthday
     },
     {
-      path: '/registry-sex',
+      path: '/registration-sex',
       name: 'Registro - Sexo',
-      component: RegistrySex
+      component: RegistrationSex
     },
     {
-      path: '/registry-job',
+      path: '/registration-job',
       name: 'Registro - Trabajo',
-      component: RegistryJob
+      component: RegistrationJob
     },
     {
-      path: '/registry-job-details',
+      path: '/registration-job-details',
       name: 'Registro - Lugar de trabajo',
-      component: RegistryJobDetails
+      component: RegistrationJobDetails
     },
     {
-      path: '/registry-school',
+      path: '/registration-school',
       name: 'Registro - Centro',
-      component: RegistrySchool
+      component: RegistrationSchool
     },
     {
-      path: '/registry-school-details',
+      path: '/registration-school-details',
       name: 'Registro - Nombre del centro',
-      component: RegistrySchoolDetails
+      component: RegistrationSchoolDetails
     },
     {
-      path: '/registry-success',
+      path: '/registration-success',
       name: 'Registro completado',
-      component: RegistrySuccess
+      component: RegistrationSuccess
     }
   ]
 })

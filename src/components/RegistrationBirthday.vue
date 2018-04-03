@@ -22,7 +22,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/registry-sex'" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/registration-sex'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -34,7 +34,7 @@ import ButtonNext from './parts/ButtonNext'
 import FormSelect from './parts/FormSelect'
 
 export default {
-  name: 'RegistryBirthday',
+  name: 'RegistrationBirthday',
   components: {
     ButtonAudio,
     ButtonPrev,

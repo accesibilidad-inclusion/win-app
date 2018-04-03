@@ -4,15 +4,15 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Tienes trabajo?</h2>
-      <p>Indícanos si realizas algún trabajo con remuneración</p>
+      <h2>¿Has asistido o asistes a algún centro de apoyo especial?</h2>
+      <p>Puede ser un grupo, escuela, institución o establecimiento</p>
       <br>
       <form class="row">
         <div class="col-6 pr-4">
-          <button-option :name="'hasJob'" :realValue="true" :value="selectedValue" :isLarge="true" @change="changeValue">Sí</button-option>
+          <button-option :name="'hasSchool'" :realValue="true" :value="selectedValue" :isLarge="true" @change="changeValue">Sí</button-option>
         </div>
         <div class="col-6 pl-4">
-          <button-option :name="'hasJob'" :realValue="false" :value="selectedValue" :isLarge="true" @change="changeValue">No</button-option>
+          <button-option :name="'hasSchool'" :realValue="false" :value="selectedValue" :isLarge="true" @change="changeValue">No</button-option>
         </div>
       </form>
     </div>
@@ -30,7 +30,7 @@ import ButtonNext from './parts/ButtonNext'
 import ButtonOption from './parts/ButtonOption'
 
 export default {
-  name: 'RegistryJob',
+  name: 'RegistrationSchool',
   components: {
     ButtonAudio,
     ButtonPrev,
@@ -39,13 +39,13 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.state.user.job
+      selectedValue: this.$store.state.user.school
     }
   },
   methods: {
     changeValue (newValue) {
       this.selectedValue = newValue
-      this.$store.commit('job', newValue)
+      this.$store.commit('school', newValue)
     }
   },
   computed: {
@@ -53,7 +53,7 @@ export default {
       return this.selectedValue !== null
     },
     continueTo () {
-      return this.selectedValue === true ? '/registry-job-details' : '/registry-school'
+      return this.selectedValue === true ? '/registration-school-details' : '/registration-success'
     }
   }
 }

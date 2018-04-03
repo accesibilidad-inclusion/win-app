@@ -52,7 +52,7 @@ export default {
       return this.selectedValue !== null
     },
     continueTo () {
-      return this.selectedValue === true ? '/registry-names' : '/welcome'
+      return this.selectedValue === true ? '/registration-names' : '/welcome'
     }
   }
 }
