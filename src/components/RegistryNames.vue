@@ -44,12 +44,12 @@ export default {
   },
   methods: {
     changeName (event) {
-      const value = event.target.value.trim()
+      const value = event.target.value
       this.name = value
       this.$store.commit('name', value)
     },
     changeLastname (event) {
-      const value = event.target.value.trim()
+      const value = event.target.value
       this.lastname = value
       this.$store.commit('lastname', value)
     }

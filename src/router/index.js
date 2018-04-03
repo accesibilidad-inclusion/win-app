@@ -11,6 +11,10 @@ import RegistryNames from '@/components/RegistryNames'
 import RegistryBirthday from '@/components/RegistryBirthday'
 import RegistrySex from '@/components/RegistrySex'
 import RegistryJob from '@/components/RegistryJob'
+import RegistryJobDetails from '@/components/RegistryJobDetails'
+import RegistrySchool from '@/components/RegistrySchool'
+import RegistrySchoolDetails from '@/components/RegistrySchoolDetails'
+import RegistrySuccess from '@/components/RegistrySuccess'
 
 Vue.use(Router)
 
@@ -60,6 +64,26 @@ export default new Router({
       path: '/registry-job',
       name: 'Registro - Trabajo',
       component: RegistryJob
+    },
+    {
+      path: '/registry-job-details',
+      name: 'Registro - Lugar de trabajo',
+      component: RegistryJobDetails
+    },
+    {
+      path: '/registry-school',
+      name: 'Registro - Centro',
+      component: RegistrySchool
+    },
+    {
+      path: '/registry-school-details',
+      name: 'Registro - Nombre del centro',
+      component: RegistrySchoolDetails
+    },
+    {
+      path: '/registry-success',
+      name: 'Registro completado',
+      component: RegistrySuccess
     }
   ]
 })

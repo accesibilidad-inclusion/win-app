@@ -47,3 +47,18 @@ export const sex = (state, value) => {
 export const job = (state, value) => {
   state.user.job = value
 }
+
+// JobPlace
+export const jobPlace = (state, value) => {
+  state.user.jobPlace = value
+}
+
+// School
+export const school = (state, value) => {
+  state.user.school = value
+}
+
+// School Name
+export const schoolName = (state, value) => {
+  state.user.schoolName = value
+}
