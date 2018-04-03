@@ -7,6 +7,7 @@ import Welcome from '@/components/Welcome'
 import Disability from '@/components/Disability'
 import DisabilityDetails from '@/components/DisabilityDetails'
 import Consent from '@/components/Consent'
+// Registration
 import RegistrationNames from '@/components/RegistrationNames'
 import RegistrationBirthday from '@/components/RegistrationBirthday'
 import RegistrationSex from '@/components/RegistrationSex'
@@ -15,6 +16,11 @@ import RegistrationJobDetails from '@/components/RegistrationJobDetails'
 import RegistrationSchool from '@/components/RegistrationSchool'
 import RegistrationSchoolDetails from '@/components/RegistrationSchoolDetails'
 import RegistrationSuccess from '@/components/RegistrationSuccess'
+// Question
+import Question from '@/components/Question'
+// import QuestionYes from '@/components/QuestionYes'
+// import QuestionNo from '@/components/QuestionNo'
+// import QuestionAssistances from '@/components/QuestionAssistances'
 
 Vue.use(Router)
 
@@ -84,6 +90,24 @@ export default new Router({
       path: '/registration-success',
       name: 'Registro completado',
       component: RegistrationSuccess
+    },
+    {
+      path: '/question/:id',
+      component: Question
+      // children: [
+      //   {
+      //     path: 'type-yes',
+      //     component: QuestionYes
+      //   },
+      //   {
+      //     path: 'type-no',
+      //     component: QuestionNo
+      //   },
+      //   {
+      //     path: 'assistances',
+      //     component: QuestionAssistances
+      //   }
+      // ]
     }
   ]
 })

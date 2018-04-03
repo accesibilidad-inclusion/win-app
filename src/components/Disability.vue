@@ -1,5 +1,5 @@
 <template>
-  <div class="screen bg-main justify-content-between">
+  <div class="screen bg-main">
     <header class="header container">
       <button-prev></button-prev>
     </header>

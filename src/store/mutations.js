@@ -62,3 +62,17 @@ export const school = (state, value) => {
 export const schoolName = (state, value) => {
   state.user.schoolName = value
 }
+
+// Questions
+export const questions = (state, items) => {
+  for (const item of items) {
+    delete item.deleted_at
+    delete item.created_at
+    delete item.updated_at
+    for (const option of item.options) {
+      delete option.created_at
+      delete option.updated_at
+    }
+  }
+  state.questions = items
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="screen bg-main justify-content-between">
+  <div class="screen bg-main">
     <header class="header container">
       <button-prev></button-prev>
     </header>
@@ -9,7 +9,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/questions'" :isDisabled="false"></button-next>
+      <button-next :linkTo="'/question/1'" :isDisabled="false"></button-next>
     </footer>
   </div>
 </template>

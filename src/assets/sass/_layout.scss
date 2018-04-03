@@ -17,10 +17,18 @@ body {
   @extend .container-fluid;
 }
 
+.container--question {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 68vh;
+}
+
 .screen {
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-width: 100vw;
   min-height: 100%;
   overflow-x: hidden;

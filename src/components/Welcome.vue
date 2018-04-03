@@ -1,5 +1,5 @@
 <template>
-  <div class="screen bg-main justify-content-between">
+  <div class="screen bg-main">
     <header></header>
     <div class="main container">
       <h2>¡Bienvenidos a WIN!</h2>

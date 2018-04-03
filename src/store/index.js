@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as mutations from './mutations'
+import * as getters from './getters'
 
 Vue.use(Vuex)
 
@@ -20,11 +21,13 @@ const state = {
     jobPlace: '',
     school: null,
     schoolName: ''
-  }
+  },
+  questions: []
 }
 
 const store = new Vuex.Store({
   state,
+  getters,
   mutations,
   plugins: [createPersistedState({
     key: 'win-app'
