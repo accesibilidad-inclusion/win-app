@@ -18,7 +18,8 @@ import RegistrationSchoolDetails from '@/components/RegistrationSchoolDetails'
 import RegistrationSuccess from '@/components/RegistrationSuccess'
 // Question
 import Question from '@/components/Question'
-// import QuestionYes from '@/components/QuestionYes'
+import QuestionType from '@/components/QuestionType'
+// import QuestionTypeYes from '@/components/QuestionTypeYes'
 // import QuestionNo from '@/components/QuestionNo'
 // import QuestionAssistances from '@/components/QuestionAssistances'
 
@@ -93,21 +94,25 @@ export default new Router({
     },
     {
       path: '/question/:id',
-      component: Question
-      // children: [
-      //   {
-      //     path: 'type-yes',
-      //     component: QuestionYes
-      //   },
-      //   {
-      //     path: 'type-no',
-      //     component: QuestionNo
-      //   },
-      //   {
-      //     path: 'assistances',
-      //     component: QuestionAssistances
-      //   }
-      // ]
+      component: { template: '<router-view/>' },
+      children: [
+        {
+          path: '',
+          component: Question
+        },
+        {
+          path: 'type/:type',
+          component: QuestionType
+        }
+        // {
+        //   path: 'type-no',
+        //   component: QuestionNo
+        // },
+        // {
+        //   path: 'assistances',
+        //   component: QuestionAssistances
+        // }
+      ]
     }
   ]
 })

@@ -5,18 +5,13 @@
     </header>
     <div class="main container container--question">
       <h2>{{ question.formulation }}</h2>
-      <form class="row">
-        <div class="col-6 pr-3">
-          <button-option :name="'question'" :realValue="true" :value="selectedValue" :isLarge="true" @change="changeValue">Sí</button-option>
-        </div>
-        <div class="col-6 pl-3">
-          <button-option :name="'question'" :realValue="false" :value="selectedValue" :isLarge="true" @change="changeValue">No</button-option>
-        </div>
+      <form>
+      <button-option v-for="item in question.options.filter(item => item.type === this.$route.params.type)" :key="item.id" :name="'question-type'" :realValue="item.id" :value="selectedValue" @change="changeValue">{{ item.label }}</button-option>
       </form>
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="continueTo" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -28,7 +23,7 @@ import ButtonNext from './parts/ButtonNext'
 import ButtonOption from './parts/ButtonOption'
 
 export default {
-  name: 'Question',
+  name: 'QuestionType',
   components: {
     ButtonAudio,
     ButtonPrev,
@@ -37,13 +32,13 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.getters.getQuestionValueById(this.$route.params.id)
+      selectedValue: null
     }
   },
   methods: {
     changeValue (newValue) {
       this.selectedValue = newValue
-      this.$store.commit('question', { id: this.$route.params.id, value: newValue })
+      this.$store.commit('question', newValue)
     }
   },
   computed: {
@@ -57,9 +52,6 @@ export default {
     },
     canContinue () {
       return this.selectedValue !== null
-    },
-    continueTo () {
-      return '/question/' + this.$route.params.id + '/type/' + (this.selectedValue === true ? 'yes' : 'no')
     }
   }
 }

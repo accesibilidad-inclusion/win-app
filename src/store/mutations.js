@@ -1,78 +1,87 @@
 // Discapacidad
-export const disability = (state, value) => {
-  state.user.disability = value
+export const disability = (state, payload) => {
+  state.user.disability = payload
 }
 
 // Tpos de Discapacidad
-export const disabilityAdd = (state, value) => {
-  state.user.disabilityTypes.push(value)
+export const disabilityAdd = (state, payload) => {
+  state.user.disabilityTypes.push(payload)
 }
-export const disabilityRemove = (state, value) => {
-  const index = state.user.disabilityTypes.indexOf(value)
+export const disabilityRemove = (state, payload) => {
+  const index = state.user.disabilityTypes.indexOf(payload)
   if (index !== -1) {
     state.user.disabilityTypes.splice(index, 1)
   }
 }
 
 // Consentimiento
-export const consent = (state, value) => {
-  state.user.consent = value
+export const consent = (state, payload) => {
+  state.user.consent = payload
 }
 
 // Nombre y Apellido
-export const name = (state, value) => {
-  state.user.name = value
+export const name = (state, payload) => {
+  state.user.name = payload
 }
-export const lastname = (state, value) => {
-  state.user.lastname = value
+export const lastname = (state, payload) => {
+  state.user.lastname = payload
 }
 
 // Fecha de Nacimiento
-export const dayBirth = (state, value) => {
-  state.user.dayBirth = value
+export const dayBirth = (state, payload) => {
+  state.user.dayBirth = payload
 }
-export const monthBirth = (state, value) => {
-  state.user.monthBirth = value
+export const monthBirth = (state, payload) => {
+  state.user.monthBirth = payload
 }
-export const yearBirth = (state, value) => {
-  state.user.yearBirth = value
+export const yearBirth = (state, payload) => {
+  state.user.yearBirth = payload
 }
 
 // Sex
-export const sex = (state, value) => {
-  state.user.sex = value
+export const sex = (state, payload) => {
+  state.user.sex = payload
 }
 
 // Job
-export const job = (state, value) => {
-  state.user.job = value
+export const job = (state, payload) => {
+  state.user.job = payload
 }
 
 // JobPlace
-export const jobPlace = (state, value) => {
-  state.user.jobPlace = value
+export const jobPlace = (state, payload) => {
+  state.user.jobPlace = payload
 }
 
 // School
-export const school = (state, value) => {
-  state.user.school = value
+export const school = (state, payload) => {
+  state.user.school = payload
 }
 
 // School Name
-export const schoolName = (state, value) => {
-  state.user.schoolName = value
+export const schoolName = (state, payload) => {
+  state.user.schoolName = payload
 }
 
 // Questions
-export const questions = (state, items) => {
-  for (const item of items) {
-    delete item.deleted_at
-    delete item.created_at
-    delete item.updated_at
-    for (const option of item.options) {
-      delete option.created_at
-      delete option.updated_at
+export const script = (state, items) => {
+  const questions = []
+  const options = []
+  for (const q of items) {
+    let question = {}
+    question[q.id] = null
+    questions.push(question)
+    for (const o of q.options) {
+      let option = {}
+      option[o.id] = null
+      options.push(option)
     }
   }
-  state.questions = items
+  state.script = items
+  state.questions = questions
+  state.options = options
+}
+
+export const question = (state, question) => {
+  state.questions[question.id] = question.value
 }

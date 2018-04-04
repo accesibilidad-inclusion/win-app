@@ -22,7 +22,9 @@ const state = {
     school: null,
     schoolName: ''
   },
-  questions: []
+  script: [],
+  questions: [],
+  options: []
 }
 
 const store = new Vuex.Store({

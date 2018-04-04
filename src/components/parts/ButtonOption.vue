@@ -44,6 +44,7 @@ export default {
     height: 70px;
     color: $gray;
     border: none;
+    white-space: normal;
     &.btn-lg {
       font-size: $h1-font-size;
     }
