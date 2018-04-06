@@ -6,7 +6,7 @@
 export default {
   name: 'ButtonNext',
   props: {
-    'linkTo': String,
+    'linkTo': null,
     'isDisabled': Boolean
   },
   data () {

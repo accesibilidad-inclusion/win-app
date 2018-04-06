@@ -16,8 +16,11 @@ import RegistrationJobDetails from '@/components/RegistrationJobDetails'
 import RegistrationSchool from '@/components/RegistrationSchool'
 import RegistrationSchoolDetails from '@/components/RegistrationSchoolDetails'
 import RegistrationSuccess from '@/components/RegistrationSuccess'
+// Questionnaire
+import Questionnaire from '@/components/Questionnaire'
 // Question
 import Question from '@/components/Question'
+import QuestionStart from '@/components/QuestionStart'
 import QuestionType from '@/components/QuestionType'
 // import QuestionTypeYes from '@/components/QuestionTypeYes'
 // import QuestionNo from '@/components/QuestionNo'
@@ -29,89 +32,98 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Splash',
+      name: 'splash',
       component: Splash
     },
     {
       path: '/welcome',
-      name: 'Bienvenida',
+      name: 'welcome',
       component: Welcome
     },
     {
       path: '/disability',
-      name: 'Discapacidad',
+      name: 'disability',
       component: Disability
     },
     {
       path: '/disability-details',
-      name: 'Tipos de discapacidad',
+      name: 'disability-details',
       component: DisabilityDetails
     },
     {
       path: '/consent',
-      name: 'Consentimiento',
+      name: 'consent',
       component: Consent
     },
     {
       path: '/registration-names',
-      name: 'Registro - Nombres',
+      name: 'registration-names',
       component: RegistrationNames
     },
     {
       path: '/registration-birthday',
-      name: 'Registro - Fecha de nacimiento',
+      name: 'registration-birthday',
       component: RegistrationBirthday
     },
     {
       path: '/registration-sex',
-      name: 'Registro - Sexo',
+      name: 'registration-sex',
       component: RegistrationSex
     },
     {
       path: '/registration-job',
-      name: 'Registro - Trabajo',
+      name: 'registration-job',
       component: RegistrationJob
     },
     {
       path: '/registration-job-details',
-      name: 'Registro - Lugar de trabajo',
+      name: 'registration-job-details',
       component: RegistrationJobDetails
     },
     {
       path: '/registration-school',
-      name: 'Registro - Centro',
+      name: 'registration-school',
       component: RegistrationSchool
     },
     {
       path: '/registration-school-details',
-      name: 'Registro - Nombre del centro',
+      name: 'registration-school-details',
       component: RegistrationSchoolDetails
     },
     {
       path: '/registration-success',
-      name: 'Registro completado',
+      name: 'registration-success',
       component: RegistrationSuccess
     },
     {
-      path: '/question/:id',
+      path: '/questionnaire/:questionnaire_id',
       component: { template: '<router-view/>' },
       children: [
         {
           path: '',
-          component: Question
+          name: 'stage',
+          component: Questionnaire
         },
         {
-          path: 'type/:type',
-          component: QuestionType
+          path: 'question/:question_id',
+          component: Question,
+          children: [
+            {
+              path: '',
+              name: 'question',
+              component: QuestionStart
+            },
+            {
+              path: 'type/:question_type',
+              name: 'question-type',
+              component: QuestionType
+            }
+            // {
+            //   path: 'assistances',
+            //   component: QuestionAssistances
+            // }
+          ]
         }
-        // {
-        //   path: 'type-no',
-        //   component: QuestionNo
-        // },
-        // {
-        //   path: 'assistances',
-        //   component: QuestionAssistances
-        // }
       ]
     }
   ]

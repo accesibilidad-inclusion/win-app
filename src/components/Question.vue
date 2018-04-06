@@ -5,14 +5,12 @@
     </header>
     <div class="main container container--question">
       <h2>{{ question.formulation }}</h2>
-      <form class="row">
-        <div class="col-6 pr-3">
-          <button-option :name="'question'" :realValue="true" :value="selectedValue" :isLarge="true" @change="changeValue">Sí</button-option>
-        </div>
-        <div class="col-6 pl-3">
-          <button-option :name="'question'" :realValue="false" :value="selectedValue" :isLarge="true" @change="changeValue">No</button-option>
-        </div>
-      </form>
+      <transition name="fade">
+        <router-view
+          @changeQuestion="changeQuestionValue"
+          @changeOption="changeOptionValue">
+        </router-view>
+      </transition>
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
@@ -25,30 +23,37 @@
 import ButtonAudio from './parts/ButtonAudio'
 import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
-import ButtonOption from './parts/ButtonOption'
 
 export default {
   name: 'Question',
   components: {
     ButtonAudio,
     ButtonPrev,
-    ButtonNext,
-    ButtonOption
+    ButtonNext
   },
   data () {
     return {
-      selectedValue: this.$store.getters.getQuestionValueById(this.$route.params.id)
+      questionValue: this.$store.getters.getQuestionValue(this.$route.params.question_id),
+      optionValue: this.$store.getters.getOptionValue(this.$route.params.question_type)
     }
   },
   methods: {
-    changeValue (newValue) {
-      this.selectedValue = newValue
-      this.$store.commit('question', { id: this.$route.params.id, value: newValue })
+    changeQuestionValue (newValue) {
+      this.questionValue = newValue
+      this.$store.commit('question', { id: this.$route.params.question_id, value: newValue })
+    },
+    changeOptionValue (newValue) {
+      this.optionValue = newValue
+      this.$store.commit('option', {
+        question_id: parseInt(this.$route.params.question_id),
+        question_type: this.$route.params.question_type,
+        option_id: newValue
+      })
     }
   },
   computed: {
     question () {
-      return this.$store.getters.getScriptQuestionById(this.$route.params.id)
+      return this.$store.getters.getQuestionnaireQuestion(this.$route.params.question_id)
     },
     classes () {
       const backgrounds = ['bg-alt1', 'bg-alt2', 'bg-alt3', 'bg-alt4']
@@ -56,10 +61,41 @@ export default {
       return ['screen', item]
     },
     canContinue () {
-      return this.selectedValue !== null
+      return this.questionValue !== null || this.questionValue !== ''
     },
     continueTo () {
-      return '/question/' + this.$route.params.id + '/type/' + (this.selectedValue === true ? 'yes' : 'no')
+      if (this.$route.name === 'question') {
+        const type = this.questionValue === true ? 'yes' : 'no'
+        return { name: 'question-type', params: { question_type: type } }
+      }
+
+      // Casos a considerar
+      // if this.$route.name === 'question'
+      // * questionnaire/:questionnaire_id/question/:question_id -> questionnaire/:questionnaire_id/question/:id/type/:question_type
+
+      // if this.$route.name === 'question-type' && this.$store.getters.needsAssistances()
+      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/assistances
+
+      // if ['question-type', 'question-assistances'].indeOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()
+      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/where
+      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id/question/:id/where
+
+      // if this.$store.getters.isQuestionComplete()
+      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id
+      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id/question/:id/
+      // * questionnaire/:questionnaire_id/question/:id/where -> questionnaire/:questionnaire_id/question/:id/
+
+      // if this.$store.getters.isAllComplete()
+      // * questionnaire/:questionn aire_id/question/:id/type/:question_type -> completed
+      // * questionnaire/:questionnaire_id/question/:id/assistances -> completed
+      // * questionnaire/:questionnaire_id/question/:id/where -> completed
+
+      // if this.$store.getters.isQuestionnaireComplete()
+      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id
+      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id
+      // * questionnaire/:questionnaire_id/question/:id/where -> questionnaire/:questionnaire_id
+
+      return '/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + this.$route.params.question_id + '/type/' + (this.questionValue === true ? 'yes' : 'no')
     }
   }
 }

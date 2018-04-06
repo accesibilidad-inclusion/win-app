@@ -63,25 +63,44 @@ export const schoolName = (state, payload) => {
   state.user.schoolName = payload
 }
 
-// Questions
-export const script = (state, items) => {
-  const questions = []
-  const options = []
-  for (const q of items) {
-    let question = {}
-    question[q.id] = null
-    questions.push(question)
-    for (const o of q.options) {
-      let option = {}
-      option[o.id] = null
-      options.push(option)
+// Questionnaire
+export const questionnaire = (state, items) => {
+  // Sólo se ejecuta si no existen los valores
+  if (typeof state.questionnaire !== 'undefined') {
+    return
+  }
+  const questions = {}
+  const options = {}
+  for (const qnn of items) {
+    for (const q of qnn.questions) {
+      questions[q.id] = ''
+      for (const o of q.options) {
+        options[o.id] = false
+      }
     }
   }
-  state.script = items
+  state.questionnaire = items
   state.questions = questions
   state.options = options
 }
 
 export const question = (state, question) => {
   state.questions[question.id] = question.value
+}
+
+export const option = (state, payload) => {
+  let relatedQuestions = null
+  for (let i = 0; i < state.questionnaire.length; i++) {
+    const questions = state.questionnaire[i].questions.find(question => question.id === payload.question_id)
+    if (typeof questions === 'object') {
+      relatedQuestions = questions
+    }
+  }
+  for (let option of relatedQuestions.options.filter(item => item.type === payload.question_type)) {
+    if (option.id === payload.option_id) {
+      state.options[option.id] = true
+    } else {
+      state.options[option.id] = false
+    }
+  }
 }

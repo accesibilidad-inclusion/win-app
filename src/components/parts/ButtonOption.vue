@@ -3,7 +3,12 @@ Ejemplo obtenido de: https://jsfiddle.net/3uznmk72/154/
 -->
 <template>
   <label class="button-option">
-    <input type="radio" :value="realValue" :name="name" v-model="buttonValue">
+    <input
+      type="radio"
+      :value="realValue"
+      :name="name"
+      v-model="buttonValue"
+    >
     <span :class="classes"><slot></slot></span>
   </label>
 </template>
@@ -42,9 +47,11 @@ export default {
     justify-content: center;
     align-items: center;
     height: 70px;
+    line-height: 1.2;
+    white-space: normal;
     color: $gray;
     border: none;
-    white-space: normal;
+
     &.btn-lg {
       font-size: $h1-font-size;
     }
