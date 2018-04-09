@@ -9,7 +9,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_id + '/question/1'" :isDisabled="false"></button-next>
+      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_index + '/question/1'" :isDisabled="false"></button-next>
     </footer>
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
   data () {
     return {
       questionnaire: {
-        name: 'Hola',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam similique reprehenderit delectus perferendis autem at!'
+        name: this.$store.getters.getQuestionnaireName(this.$route.params.questionnaire_index),
+        description: this.$store.getters.getQuestionnaireDescription(this.$route.params.questionnaire_index)
       }
     }
   },

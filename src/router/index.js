@@ -96,7 +96,7 @@ export default new Router({
       component: RegistrationSuccess
     },
     {
-      path: '/questionnaire/:questionnaire_id',
+      path: '/questionnaire/:questionnaire_index',
       component: { template: '<router-view/>' },
       children: [
         {

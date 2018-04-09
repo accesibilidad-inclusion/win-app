@@ -1,4 +1,13 @@
-// Get Question from script
+// Datos del Cuestionario
+export const getQuestionnaireName = (state, getters, rootState) => (questionnaireIndex) => {
+  return state.questionnaire[questionnaireIndex].name
+}
+
+export const getQuestionnaireDescription = (state, getters, routeState) => (questionnaireIndex) => {
+  return state.questionnaire[questionnaireIndex].description
+}
+
+// Get Question from Questionnaire
 export const getQuestionnaireQuestion = (state) => (questionId) => {
   let result = null
   for (const qnn of state.questionnaire) {
