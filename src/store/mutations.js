@@ -89,18 +89,17 @@ export const question = (state, question) => {
 }
 
 export const option = (state, payload) => {
-  let relatedQuestions = null
-  for (let i = 0; i < state.questionnaire.length; i++) {
-    const questions = state.questionnaire[i].questions.find(question => question.id === payload.question_id)
-    if (typeof questions === 'object') {
-      relatedQuestions = questions
-    }
-  }
-  for (let option of relatedQuestions.options.filter(item => item.type === payload.question_type)) {
-    if (option.id === payload.option_id) {
-      state.options[option.id] = true
-    } else {
-      state.options[option.id] = false
-    }
-  }
+  state
+    .questionnaire
+    .find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))
+    .questions
+    .find(question => parseInt(question.id) === parseInt(state.route.params.question_id))
+    .options
+    .forEach(option => {
+      if (parseInt(option.id) === parseInt(payload.option_id)) {
+        state.options[option.id] = true
+      } else {
+        state.options[option.id] = false
+      }
+    })
 }

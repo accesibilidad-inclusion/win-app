@@ -7,7 +7,7 @@
 import ButtonOption from './parts/ButtonOption'
 
 export default {
-  name: 'QuestionAssistances',
+  name: 'QuestionSpecification',
   components: {
     ButtonOption
   },

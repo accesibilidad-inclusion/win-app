@@ -9,7 +9,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_index + '/question/1'" :isDisabled="false"></button-next>
+      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_id + '/question/1'" :isDisabled="false"></button-next>
     </footer>
   </div>
 </template>
@@ -24,10 +24,7 @@ export default {
   name: 'RegistrationSuccess',
   data () {
     return {
-      questionnaire: {
-        name: this.$store.getters.getQuestionnaireName(this.$route.params.questionnaire_index),
-        description: this.$store.getters.getQuestionnaireDescription(this.$route.params.questionnaire_index)
-      }
+      questionnaire: this.$store.getters.getQuestionnaire()
     }
   },
   components: {

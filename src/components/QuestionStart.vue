@@ -33,7 +33,7 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.getters.getQuestionValue(this.$route.params.question_id)
+      selectedValue: this.$store.getters.getValueQuestion()
     }
   },
   methods: {

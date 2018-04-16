@@ -1,54 +1,43 @@
 // Datos del Cuestionario
-export const getQuestionnaireName = (state, getters, rootState) => (questionnaireIndex) => {
-  return state.questionnaire[questionnaireIndex].name
+export const getQuestionnaire = (state) => () => {
+  return state.questionnaire.find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))
 }
 
-export const getQuestionnaireDescription = (state, getters, routeState) => (questionnaireIndex) => {
-  return state.questionnaire[questionnaireIndex].description
+export const getQuestionnaireQuestion = (state, getters) => () => {
+  return getters
+    .getQuestionnaire()
+    .questions
+    .find(question => parseInt(question.id) === parseInt(state.route.params.question_id))
 }
 
-// Get Question from Questionnaire
-export const getQuestionnaireQuestion = (state) => (questionId) => {
-  let result = null
-  for (const qnn of state.questionnaire) {
-    if (qnn.questions.find(question => parseInt(question.id) === parseInt(questionId))) {
-      result = qnn.questions.find(question => parseInt(question.id) === parseInt(questionId))
-    }
+export const getRelatedOptions = (state, getters) => () => {
+  return getters
+    .getQuestionnaireQuestion()
+    .options.filter(item => item.type === state.route.params.question_type)
+}
+
+export const getRelatedOptionsValue = (state, getters) => () => {
+  const option = getters.getRelatedOptions().find(option => state.options[option.id] === true)
+  if (typeof option === 'object') {
+    return option.id
   }
-  return result
+  return false
 }
 
-export const getQuestionValue = (state) => (questionId) => {
-  return state.questions[questionId]
+export const needsAssistantes = (state, getters) => () => {
+  const option = getters.getRelatedOptions().find(option => state.options[option.id] === true)
+  return state.route.params.question_type === 'yes' && typeof option === 'object' && parseInt(option.order) === 3
 }
 
-export const getOptionValue = (state) => (optionId) => {
+export const needsSpecification = (state, getters) => () => {
+  return getters.getQuestionnaireQuestion().needs_specification
+}
+
+// Valores guardados en objetos independientes
+export const getValueQuestion = (state) => () => {
+  return state.questions[state.route.params.question_id]
+}
+
+export const getValueOption = (state) => (optionId) => {
   return state.options[optionId]
-}
-
-export const getRelatedOptions = (state) => (questionId, questionType) => {
-  let relatedQuestions = null
-  for (let i = 0; i < state.questionnaire.length; i++) {
-    const questions = state.questionnaire[i].questions.find(question => question.id === questionId)
-    if (typeof questions === 'object') {
-      relatedQuestions = questions
-    }
-  }
-  if (relatedQuestions !== null) {
-    return relatedQuestions.options.filter(item => item.type === questionType)
-  }
-  return null
-}
-
-export const getRelatedOptionsValue = (state, getters) => (questionId, questionType) => {
-  const relatedOptions = getters.getRelatedOptions(questionId, questionType)
-  let value = ''
-  if (relatedOptions !== null) {
-    for (let option of relatedOptions) {
-      if (state.options[option.id] === true) {
-        value = option.id
-      }
-    }
-  }
-  return value
 }

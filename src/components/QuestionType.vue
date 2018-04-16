@@ -21,11 +21,7 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.getters
-        .getRelatedOptionsValue(
-          parseInt(this.$route.params.question_id),
-          this.$route.params.question_type
-        )
+      selectedValue: this.$store.getters.getRelatedOptionsValue()
     }
   },
   methods: {
@@ -36,14 +32,9 @@ export default {
   },
   computed: {
     options () {
-      const types = this.$store.getters
-        .getRelatedOptions(
-          parseInt(this.$route.params.question_id),
-          this.$route.params.question_type
-        )
+      const types = this.$store.getters.getRelatedOptions()
       types.forEach((item, index) => {
-        const value = this.$store.getters
-          .getOptionValue(item.id)
+        const value = this.$store.getters.getValueOption(item.id)
         this.$set(types[index], 'value', value)
       })
       return types

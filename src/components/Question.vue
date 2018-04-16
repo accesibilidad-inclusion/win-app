@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container container--question">
-      <h2>{{ question.formulation }}</h2>
+      <h2>{{ title }}</h2>
       <transition name="fade">
         <router-view
           @changeQuestion="changeQuestionValue"
@@ -33,8 +33,8 @@ export default {
   },
   data () {
     return {
-      questionValue: this.$store.getters.getQuestionValue(this.$route.params.question_id),
-      optionValue: this.$store.getters.getOptionValue(this.$route.params.question_type)
+      questionValue: this.$store.getters.getValueQuestion(),
+      optionValue: this.$store.getters.getRelatedOptionsValue()
     }
   },
   methods: {
@@ -53,7 +53,16 @@ export default {
   },
   computed: {
     question () {
-      return this.$store.getters.getQuestionnaireQuestion(this.$route.params.question_id)
+      return this.$store.getters.getQuestionnaireQuestion()
+    },
+    title () {
+      if (this.$route.name === 'question-assistances') {
+        return '¿Qué tipo de apoyo necesitas?'
+      }
+      if (this.$route.name === 'question-specification') {
+        return this.question.specification
+      }
+      return this.question.formulation
     },
     classes () {
       const backgrounds = ['bg-alt1', 'bg-alt2', 'bg-alt3', 'bg-alt4']
@@ -61,20 +70,36 @@ export default {
       return ['screen', item]
     },
     canContinue () {
-      return this.questionValue !== null || this.questionValue !== ''
+      if (this.$route.name === 'question') {
+        return this.questionValue !== null && this.questionValue !== ''
+      }
+      if (this.$route.name === 'question-type') {
+        return this.$store.getters
+          .getRelatedOptions()
+          .find(option => this.$store.state.options[option.id] === true)
+      }
     },
     continueTo () {
+      // Type
       if (this.$route.name === 'question') {
         const type = this.questionValue === true ? 'yes' : 'no'
         return { name: 'question-type', params: { question_type: type } }
       }
+      // Assistances
+      if (this.$route.name === 'question-type' && this.$store.getters.needsAssistantes()) {
+        return { name: 'question-assistances' }
+      }
+      // Specification
+      if (['question-type', 'question-assistances'].indexOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()) {
+        return { name: 'question-specification' }
+      }
 
       // Casos a considerar
       // if this.$route.name === 'question'
-      // * questionnaire/:questionnaire_id/question/:question_id -> questionnaire/:questionnaire_id/question/:id/type/:question_type
+      // - questionnaire/:questionnaire_id/question/:question_id -> questionnaire/:questionnaire_id/question/:id/type/:question_type
 
       // if this.$route.name === 'question-type' && this.$store.getters.needsAssistances()
-      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/assistances
+      // - questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/assistances
 
       // if ['question-type', 'question-assistances'].indeOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()
       // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/where

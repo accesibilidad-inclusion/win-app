@@ -24,7 +24,8 @@ import QuestionStart from '@/components/QuestionStart'
 import QuestionType from '@/components/QuestionType'
 // import QuestionTypeYes from '@/components/QuestionTypeYes'
 // import QuestionNo from '@/components/QuestionNo'
-// import QuestionAssistances from '@/components/QuestionAssistances'
+import QuestionAssistances from '@/components/QuestionAssistances'
+import QuestionSpecification from '@/components/QuestionSpecification'
 
 Vue.use(Router)
 
@@ -96,7 +97,7 @@ export default new Router({
       component: RegistrationSuccess
     },
     {
-      path: '/questionnaire/:questionnaire_index',
+      path: '/questionnaire/:questionnaire_id',
       component: { template: '<router-view/>' },
       children: [
         {
@@ -117,11 +118,17 @@ export default new Router({
               path: 'type/:question_type',
               name: 'question-type',
               component: QuestionType
+            },
+            {
+              path: 'assistances',
+              name: 'question-assistances',
+              component: QuestionAssistances
+            },
+            {
+              path: 'specification',
+              name: 'question-specification',
+              component: QuestionSpecification
             }
-            // {
-            //   path: 'assistances',
-            //   component: QuestionAssistances
-            // }
           ]
         }
       ]

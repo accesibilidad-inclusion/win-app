@@ -2,8 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import { sync } from 'vuex-router-sync'
 import store from './store'
+import router from './router'
 import VueResource from 'vue-resource'
 import * as svgicon from 'vue-svgicon'
 
@@ -27,7 +28,7 @@ new Vue({
   beforeCreate: function () {
     this.$http
       // Consulta
-      .get('https://gist.githubusercontent.com/felipelavinz/b860698663dbddf7fe4d06fbd24c6a55/raw/cf0d6b1174734930f03e12107a6eacdb20ad4c00/script.json')
+      .get('https://gist.githubusercontent.com/felipelavinz/216f3f6451ce41fd0702fb10c7eeaa22/raw/f0ccb48fb660d8922edd5a8907b7c03166dad259/survey.json')
       // Respuesta
       .then(
         response => {
@@ -43,3 +44,5 @@ new Vue({
       )
   }
 })
+
+sync(store, router)
