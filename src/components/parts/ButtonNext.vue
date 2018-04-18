@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    classes: function () {
+    classes () {
       return [ 'btn-next', (this.isDisabled ? 'disabled' : '') ].join(' ')
     }
   }

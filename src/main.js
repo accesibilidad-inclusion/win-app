@@ -35,7 +35,7 @@ new Vue({
           // Se poblan los datos de la app
           // * Establecer un método de store para guardar y acceder a los datos
           // Una vez que se configura todo, se puede avanzar a la siguiente pantalla
-          this.$store.commit('questionnaire', response.body.questionnaire)
+          this.$store.commit('saveState', response.body)
           router.push('welcome')
         },
         response => {

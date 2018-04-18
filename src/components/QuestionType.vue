@@ -21,7 +21,7 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.getters.getRelatedOptionsValue()
+      selectedValue: this.$store.getters.getQuestionTypeOptionSelected()
     }
   },
   methods: {
@@ -32,10 +32,10 @@ export default {
   },
   computed: {
     options () {
-      const types = this.$store.getters.getRelatedOptions()
+      const types = this.$store.getters.getQuestionTypeOptions()
       types.forEach((item, index) => {
-        const value = this.$store.getters.getValueOption(item.id)
-        this.$set(types[index], 'value', value)
+        const selected = this.$store.getters.getSelectedOption(item.id)
+        this.$set(types[index], 'selected', selected)
       })
       return types
     }

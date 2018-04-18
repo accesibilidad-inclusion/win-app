@@ -18,13 +18,19 @@ export default {
 @import "~bootstrap/scss/buttons";
 
 .btn-prev {
-  @extend .btn;
+  position: relative;
+  display: block;
   width: 40px;
   height: 40px;
   margin-left: ($grid-gutter-width/2) * -1;
-  padding-left: 0;
-  padding-right: 0;
   background-color: rgba($white, .2);
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -9px;
+    margin-left: -9px;
+  }
   &:focus{
     box-shadow: $input-btn-focus-box-shadow;
   }

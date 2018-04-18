@@ -22,9 +22,7 @@ import Questionnaire from '@/components/Questionnaire'
 import Question from '@/components/Question'
 import QuestionStart from '@/components/QuestionStart'
 import QuestionType from '@/components/QuestionType'
-// import QuestionTypeYes from '@/components/QuestionTypeYes'
-// import QuestionNo from '@/components/QuestionNo'
-import QuestionAssistances from '@/components/QuestionAssistances'
+import QuestionAids from '@/components/QuestionAids'
 import QuestionSpecification from '@/components/QuestionSpecification'
 
 Vue.use(Router)
@@ -120,9 +118,9 @@ export default new Router({
               component: QuestionType
             },
             {
-              path: 'assistances',
-              name: 'question-assistances',
-              component: QuestionAssistances
+              path: 'aids',
+              name: 'question-aids',
+              component: QuestionAids
             },
             {
               path: 'specification',

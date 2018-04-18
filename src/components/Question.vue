@@ -1,20 +1,28 @@
 <template>
   <div :class="classes">
-    <header class="header container">
+    <header class="header container header--question">
       <button-prev></button-prev>
+      <div class="stage-control">
+        <span class="stage-name">{{ questionnaire.name }}</span>
+        <span class="stage-progress-indicator">{{ progressData[0] }} / {{ progressData[1] }}</span>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" :style="{ width: progressPercent + '%' }" :aria-valuenow="progressPercent" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
     </header>
     <div class="main container container--question">
       <h2>{{ title }}</h2>
       <transition name="fade">
         <router-view
           @changeQuestion="changeQuestionValue"
-          @changeOption="changeOptionValue">
+          @changeOption="changeOptionValue"
+          @changeAids="changeAidsValues">
         </router-view>
       </transition>
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="continueTo" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="linkTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -34,29 +42,78 @@ export default {
   data () {
     return {
       questionValue: this.$store.getters.getValueQuestion(),
-      optionValue: this.$store.getters.getRelatedOptionsValue()
+      optionValue: this.$store.getters.getQuestionTypeOptionSelected(),
+      aidsValues: this.$store.getters.getValueAids(),
+      questionnaire: this.$store.getters.getQuestionnaire(),
+      link: this.continueTo()
     }
   },
   methods: {
     changeQuestionValue (newValue) {
       this.questionValue = newValue
-      this.$store.commit('question', { id: this.$route.params.question_id, value: newValue })
+      this.$store.commit('question', { value: newValue })
+      this.linkTo = this.continueTo()
     },
     changeOptionValue (newValue) {
       this.optionValue = newValue
-      this.$store.commit('option', {
-        question_id: parseInt(this.$route.params.question_id),
-        question_type: this.$route.params.question_type,
-        option_id: newValue
-      })
+      this.$store.commit('option', { value: newValue })
+      this.linkTo = this.continueTo()
+    },
+    changeAidsValues (newValue) {
+      this.aidsValues = newValue
+      this.$store.commit('aids', { value: newValue })
+      this.linkTo = this.continueTo()
+    },
+    continueTo () {
+      // Tipo
+      if (this.$route.name === 'question') {
+        const type = this.$store.getters.getValueQuestion() === true ? 'yes' : 'no'
+        return { name: 'question-type', params: { question_type: type } }
+      }
+      // Ayudas
+      if (this.$route.name === 'question-type' && this.$store.getters.needsAids()) {
+        return { name: 'question-aids' }
+      }
+      // Especificaciones
+      if (['question-type', 'question-aids'].indexOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()) {
+        return { name: 'question-specification' }
+      }
+      // Cuestionario completo
+      if (this.$route.name !== 'question' && this.$store.getters.isAllComplete()) {
+        return { name: 'completed' }
+      }
+      // Etapa completa
+      if (this.$route.name !== 'question' && this.$store.getters.isQuestionnaireComplete()) {
+        return '/questionnaire/' + this.$store.getters.nextQuestionnaireId()
+      }
+      // Pregunta completa
+      if (this.$route.name !== 'question' && this.$store.getters.isQuestionComplete()) {
+        return '/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + this.$store.getters.nextQuestionId()
+      }
+      return ''
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.linkTo = this.continueTo()
     }
   },
   computed: {
     question () {
-      return this.$store.getters.getQuestionnaireQuestion()
+      return this.$store.getters.getQuestion()
+    },
+    linkTo: {
+      get () { return this.link },
+      set (linkTo) { this.link = linkTo }
+    },
+    progressData () {
+      return [parseInt(this.$store.getters.getQuestionIndex()) + 1, parseInt(this.questionnaire.questions.length)]
+    },
+    progressPercent () {
+      return (this.progressData[0] / this.progressData[1]) * 100
     },
     title () {
-      if (this.$route.name === 'question-assistances') {
+      if (this.$route.name === 'question-aids') {
         return '¿Qué tipo de apoyo necesitas?'
       }
       if (this.$route.name === 'question-specification') {
@@ -65,63 +122,51 @@ export default {
       return this.question.formulation
     },
     classes () {
-      const backgrounds = ['bg-alt1', 'bg-alt2', 'bg-alt3', 'bg-alt4']
-      const item = backgrounds[Math.floor(Math.random() * backgrounds.length)]
-      return ['screen', item]
+      return ['screen', this.$store.getters.getQuestionBackground()]
     },
     canContinue () {
       if (this.$route.name === 'question') {
-        return this.questionValue !== null && this.questionValue !== ''
+        return typeof this.$store.getters.getValueQuestion() === 'boolean'
       }
       if (this.$route.name === 'question-type') {
         return this.$store.getters
-          .getRelatedOptions()
+          .getQuestionTypeOptions()
           .find(option => this.$store.state.options[option.id] === true)
       }
-    },
-    continueTo () {
-      // Type
-      if (this.$route.name === 'question') {
-        const type = this.questionValue === true ? 'yes' : 'no'
-        return { name: 'question-type', params: { question_type: type } }
+      if (this.$route.name === 'question-aids') {
+        return this.$store.getters.getValueAids().length > 0
       }
-      // Assistances
-      if (this.$route.name === 'question-type' && this.$store.getters.needsAssistantes()) {
-        return { name: 'question-assistances' }
-      }
-      // Specification
-      if (['question-type', 'question-assistances'].indexOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()) {
-        return { name: 'question-specification' }
-      }
-
-      // Casos a considerar
-      // if this.$route.name === 'question'
-      // - questionnaire/:questionnaire_id/question/:question_id -> questionnaire/:questionnaire_id/question/:id/type/:question_type
-
-      // if this.$route.name === 'question-type' && this.$store.getters.needsAssistances()
-      // - questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/assistances
-
-      // if ['question-type', 'question-assistances'].indeOf(this.$route.name) !== -1 && this.$store.getters.needsSpecification()
-      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id/where
-      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id/question/:id/where
-
-      // if this.$store.getters.isQuestionComplete()
-      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id/question/:id
-      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id/question/:id/
-      // * questionnaire/:questionnaire_id/question/:id/where -> questionnaire/:questionnaire_id/question/:id/
-
-      // if this.$store.getters.isAllComplete()
-      // * questionnaire/:questionn aire_id/question/:id/type/:question_type -> completed
-      // * questionnaire/:questionnaire_id/question/:id/assistances -> completed
-      // * questionnaire/:questionnaire_id/question/:id/where -> completed
-
-      // if this.$store.getters.isQuestionnaireComplete()
-      // * questionnaire/:questionnaire_id/question/:id/type/:question_type -> questionnaire/:questionnaire_id
-      // * questionnaire/:questionnaire_id/question/:id/assistances -> questionnaire/:questionnaire_id
-      // * questionnaire/:questionnaire_id/question/:id/where -> questionnaire/:questionnaire_id
-
-      return '/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + this.$route.params.question_id + '/type/' + (this.questionValue === true ? 'yes' : 'no')
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "~bootstrap/scss/functions";
+@import "./../assets/sass/_custom.scss";
+
+.header--question {
+  position: relative;
+  display: flex;
+  background-color: rgba($white, .2);
+}
+.stage-control {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 7px;
+  font-size: $font-size-base * $font-size-adjust * (13/16);
+}
+.stage-name {
+  margin-left: $spacer;
+}
+.stage-progress-indicator {
+  font-weight: 500;
+}
+.progress {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  margin-left: ($grid-gutter-width / 2) * -1
+}
+</style>
