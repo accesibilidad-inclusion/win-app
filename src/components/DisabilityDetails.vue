@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      types: this.$store.state.user.disabilityTypes
+      types: this.$store.state.user.disability_types
     }
   },
   methods: {

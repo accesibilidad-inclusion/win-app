@@ -1,7 +1,7 @@
 // Guardar estado inicial
-export const saveState = (state, response) => {
+export const saveSurvey = (state, response) => {
   // Sólo se ejecuta si no existen los valores
-  if (typeof state.questionnaire !== 'undefined') {
+  if (typeof state.questionnaire !== 'undefined' && state.questionnaire.length > 0) {
     return
   }
 
@@ -73,36 +73,43 @@ export const saveState = (state, response) => {
   state.backgrounds = backgrounds
 }
 
-// Discapacidad
+// User
+// Mutación de datos de state.user en onboarding
+
 export const disability = (state, payload) => {
   state.user.disability = payload
 }
 
-// Tpos de Discapacidad
 export const disabilityAdd = (state, payload) => {
-  state.user.disabilityTypes.push(payload)
+  state.user.disability_types.push(payload)
 }
 export const disabilityRemove = (state, payload) => {
-  const index = state.user.disabilityTypes.indexOf(payload)
+  const index = state.user.disability_types.indexOf(payload)
   if (index !== -1) {
-    state.user.disabilityTypes.splice(index, 1)
+    state.user.disability_types.splice(index, 1)
   }
 }
 
-// Consentimiento
 export const consent = (state, payload) => {
   state.user.consent = payload
+  state.user.consent_at = new Date().toISOString().slice(0, 19).replace('T', ' ')
 }
 
-// Nombre y Apellido
-export const name = (state, payload) => {
-  state.user.name = payload
-}
-export const lastname = (state, payload) => {
-  state.user.lastname = payload
+export const userId = (state, payload) => {
+  state.user.id = payload
 }
 
-// Fecha de Nacimiento
+export const personalId = (state, payload) => {
+  state.user.personal_id = payload
+}
+
+export const givenName = (state, payload) => {
+  state.user.given_name = payload
+}
+export const familyName = (state, payload) => {
+  state.user.family_name = payload
+}
+
 export const dayBirth = (state, payload) => {
   state.user.dayBirth = payload
 }
@@ -112,31 +119,36 @@ export const monthBirth = (state, payload) => {
 export const yearBirth = (state, payload) => {
   state.user.yearBirth = payload
 }
+export const birthday = (state, payload) => {
+  state.user.birthday = payload
+}
 
-// Sex
 export const sex = (state, payload) => {
   state.user.sex = payload
 }
 
-// Job
-export const job = (state, payload) => {
-  state.user.job = payload
+export const works = (state, payload) => {
+  state.user.works = payload
 }
 
-// JobPlace
-export const jobPlace = (state, payload) => {
-  state.user.jobPlace = payload
+export const worksAt = (state, payload) => {
+  state.user.works_at = payload
 }
 
-// School
-export const school = (state, payload) => {
-  state.user.school = payload
+export const studies = (state, payload) => {
+  state.user.studies = payload
 }
 
-// School Name
-export const schoolName = (state, payload) => {
-  state.user.schoolName = payload
+export const studiesAt = (state, payload) => {
+  state.user.studies_at = payload
 }
+
+export const hash = (state, payload) => {
+  state.user.hash = payload
+}
+
+// Cuestionario
+// Mutación de datos de preguntas: respuestas iniciales, opciones, ayudas y especificaciones
 
 export const questionActive = (state, payload) => {
   state.questionActive = payload

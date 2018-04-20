@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
           <label for="lastname">Apellido</label>
-          <input type="text" id="lastname" name="lastname" class="form-control" v-model="lastname" @keyup="changeLastname" placeholder="Escribe tu apellido">
+          <input type="text" id="lastname" name="lastname" class="form-control" v-model="familyName" @keyup="changeFamilyName" placeholder="Escribe tu apellido">
         </div>
       </form>
     </div>
@@ -38,25 +38,25 @@ export default {
   },
   data () {
     return {
-      name: this.$store.state.user.name,
-      lastname: this.$store.state.user.lastname
+      name: this.$store.state.user.given_name,
+      familyName: this.$store.state.user.family_name
     }
   },
   methods: {
     changeName (event) {
       const value = event.target.value
       this.name = value
-      this.$store.commit('name', value)
+      this.$store.commit('givenName', value)
     },
-    changeLastname (event) {
+    changeFamilyName (event) {
       const value = event.target.value
-      this.lastname = value
-      this.$store.commit('lastname', value)
+      this.familyName = value
+      this.$store.commit('familyName', value)
     }
   },
   computed: {
     canContinue () {
-      return this.name !== '' && this.lastname !== ''
+      return this.name !== '' && this.familyName !== ''
     }
   }
 }

@@ -7,7 +7,7 @@
       <h2 class="mb-3">¿Dónde trabajas?</h2>
       <form>
         <div class="form-group mb-4">
-          <input type="text" class="form-control" v-model="jobPlace" @keyup="changeValue" placeholder="Ingresa tu lugar de trabajo">
+          <input type="text" class="form-control" v-model="worksAt" @keyup="changeValue" placeholder="Ingresa tu lugar de trabajo">
         </div>
       </form>
     </div>
@@ -32,19 +32,19 @@ export default {
   },
   data () {
     return {
-      jobPlace: this.$store.state.user.jobPlace
+      worksAt: this.$store.state.user.works_at
     }
   },
   methods: {
     changeValue (event) {
       const value = event.target.value
-      this.jobPlace = value
-      this.$store.commit('jobPlace', value)
+      this.worksAt = value
+      this.$store.commit('worksAt', value)
     }
   },
   computed: {
     canContinue () {
-      return this.jobPlace !== ''
+      return this.worksAt !== ''
     }
   }
 }

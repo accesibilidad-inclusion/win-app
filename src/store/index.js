@@ -3,34 +3,43 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as mutations from './mutations'
 import * as getters from './getters'
+import * as actions from './actions'
 
 Vue.use(Vuex)
 
 const state = {
   user: {
+    id: null,
+    hash: null,
     disability: null,
-    disabilityTypes: [],
+    disability_types: [],
     consent: null,
-    name: '',
-    lastname: '',
-    dayBirth: null,
-    monthBirth: null,
-    yearBirth: null,
+    consent_at: '',
+    personal_id: '',
+    given_name: '',
+    family_name: '',
+    dayBirth: '',
+    monthBirth: '',
+    yearBirth: '',
+    birthday: '',
     sex: null,
-    job: null,
-    jobPlace: '',
-    school: null,
-    schoolName: ''
+    works: null,
+    works_at: '',
+    studies: null,
+    studies_at: ''
   },
-  script: [],
+  questionnaire: [],
   questions: [],
-  options: []
+  options: [],
+  aids: [],
+  specifications: []
 }
 
 const store = new Vuex.Store({
   state,
   getters,
   mutations,
+  actions,
   plugins: [createPersistedState({
     key: 'win-app'
   })]

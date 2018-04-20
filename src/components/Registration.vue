@@ -4,16 +4,18 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">¿A qué centro asistes o asististe?</h2>
+      <h2 class="mb-3">Registro</h2>
+      <p>Debes crear una cuenta ingresando tu Rut o DNI</p>
       <form>
         <div class="form-group mb-4">
-          <input type="text" class="form-control" v-model="studiesAt" @keyup="changeValue" placeholder="Ingresa el nombre del centro">
+          <label for="id">RUT o DNI</label>
+          <input type="text" class="form-control" name="id" v-model="personalId" @keyup="changeValue" placeholder="Escribe tu Rut o DNI">
         </div>
       </form>
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/registration-success'" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/registration-names'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -24,7 +26,7 @@ import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
 
 export default {
-  name: 'RegistrationSchoolDetails',
+  name: 'Registration',
   components: {
     ButtonAudio,
     ButtonPrev,
@@ -32,19 +34,19 @@ export default {
   },
   data () {
     return {
-      studiesAt: this.$store.state.user.studies_at
+      personalId: this.$store.state.user.personal_id
     }
   },
   methods: {
     changeValue (event) {
       const value = event.target.value
-      this.studiesAt = value
-      this.$store.commit('studiesAt', value)
+      this.personalId = value
+      this.$store.commit('personalId', value)
     }
   },
   computed: {
     canContinue () {
-      return this.studiesAt !== ''
+      return this.personalId !== ''
     }
   }
 }

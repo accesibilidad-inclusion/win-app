@@ -72,6 +72,12 @@ export default {
       var end = new Date().getFullYear()
       return this.arrayInts(1930, end).reverse()
     },
+    birthday () {
+      if (this.yearBirth !== '' & this.monthBirth !== '' && this.dayBirth !== '') {
+        return this.yearBirth + '-' + this.monthBirth + '-' + this.dayBirth
+      }
+      return ''
+    },
     canContinue () {
       return this.dayBirth !== null && this.dayBirth !== null && this.yearBirth !== null
     }
@@ -79,12 +85,15 @@ export default {
   methods: {
     dayChange (value) {
       this.$store.commit('dayBirth', value)
+      this.$store.commit('birthday', this.birthday)
     },
     monthChange (value) {
       this.$store.commit('monthBirth', value)
+      this.$store.commit('birthday', this.birthday)
     },
     yearChange (value) {
       this.$store.commit('yearBirth', value)
+      this.$store.commit('birthday', this.birthday)
     },
     arrayInts (start, end) {
       var array = []

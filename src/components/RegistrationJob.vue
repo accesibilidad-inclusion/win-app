@@ -39,13 +39,13 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.state.user.job
+      selectedValue: this.$store.state.user.works
     }
   },
   methods: {
     changeValue (newValue) {
       this.selectedValue = newValue
-      this.$store.commit('job', newValue)
+      this.$store.commit('works', newValue)
     }
   },
   computed: {
