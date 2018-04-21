@@ -16,7 +16,8 @@
         <router-view
           @changeQuestion="changeQuestionValue"
           @changeOption="changeOptionValue"
-          @changeAids="changeAidsValues">
+          @changeAids="changeAidsValues"
+          @changeSpecifications="changeSpecificationsValues">
         </router-view>
       </transition>
     </div>
@@ -42,10 +43,12 @@ export default {
   data () {
     return {
       questionValue: this.$store.getters.getValueQuestion(),
-      optionValue: this.$store.getters.getQuestionTypeOptionSelected(),
+      optionValue: this.$store.getters.getValueOptions(),
       aidsValues: this.$store.getters.getValueAids(),
+      specificationsValues: this.$store.getters.getValueSpecifications(),
       questionnaire: this.$store.getters.getQuestionnaire(),
-      link: this.continueTo()
+      link: this.continueTo(),
+      startTime: 0
     }
   },
   methods: {
@@ -62,6 +65,11 @@ export default {
     changeAidsValues (newValue) {
       this.aidsValues = newValue
       this.$store.commit('aids', { value: newValue })
+      this.linkTo = this.continueTo()
+    },
+    changeSpecificationsValues (newValue) {
+      this.specificationsValues = newValue
+      this.$store.commit('specifications', { value: newValue })
       this.linkTo = this.continueTo()
     },
     continueTo () {
@@ -91,11 +99,6 @@ export default {
         return '/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + this.$store.getters.nextQuestionId()
       }
       return ''
-    }
-  },
-  watch: {
-    '$route' (to, from) {
-      this.linkTo = this.continueTo()
     }
   },
   computed: {
@@ -131,12 +134,49 @@ export default {
       if (this.$route.name === 'question-type') {
         return this.$store.getters
           .getQuestionTypeOptions()
-          .find(option => this.$store.state.options[option.id] === true)
+          .find(option => option.value === this.$store.getters.getValueOptions())
       }
       if (this.$route.name === 'question-aids') {
         return this.$store.getters.getValueAids().length > 0
       }
+      if (this.$route.name === 'question-specification') {
+        return this.$store.getters.getValueSpecifications().length > 0
+      }
     }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.linkTo = this.continueTo()
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (to.params.question_id !== undefined) {
+      next(vm => {
+        vm.startTime = performance.now()
+      })
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (from.params.question_id !== undefined) {
+      this.$store
+        .dispatch('setResponseTime', {questionId: from.params.question_id, startTime: this.startTime})
+        .then(() => {
+          this.startTime = performance.now()
+          this.$store.dispatch('saveQuestionAnswers', from.params.question_id)
+        })
+    }
+    next()
+  },
+  beforeRouteLeave (to, from, next) {
+    if (from.params.question_id !== undefined) {
+      this.$store
+        .dispatch('setResponseTime', {questionId: from.params.question_id, startTime: this.startTime})
+        .then(() => {
+          this.startTime = performance.now()
+          this.$store.dispatch('saveQuestionAnswers', from.params.question_id)
+        })
+    }
+    next()
   }
 }
 </script>

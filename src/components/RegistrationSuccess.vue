@@ -1,7 +1,7 @@
 <template>
   <div class="screen bg-main">
     <header class="header container">
-      <button-prev></button-prev>
+      <!-- <button-prev></button-prev> -->
     </header>
     <div class="main container">
       <h2>¡Ya te has registrado!</h2>
@@ -19,7 +19,7 @@
 
 <script>
 import ButtonAudio from './parts/ButtonAudio'
-import ButtonPrev from './parts/ButtonPrev'
+// import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
@@ -27,7 +27,7 @@ export default {
   name: 'RegistrationSuccess',
   components: {
     ButtonAudio,
-    ButtonPrev,
+    // ButtonPrev,
     ButtonNext,
     ClipLoader
   },

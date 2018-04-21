@@ -4,7 +4,7 @@
       v-for="item in options"
       :key="item.id"
       :name="'question-type'"
-      :realValue="item.id"
+      :realValue="item.value"
       :value="selectedValue"
       @change="changeValue"
     >{{ item.label }}</button-option>
@@ -21,22 +21,18 @@ export default {
   },
   data () {
     return {
-      selectedValue: this.$store.getters.getQuestionTypeOptionSelected()
+      selectedValue: this.$store.getters.getValueOptions()
     }
   },
   methods: {
     changeValue (newValue) {
       this.selectedValue = newValue
-      this.$emit('changeOption', newValue)
+      this.$emit('changeOption', this.selectedValue)
     }
   },
   computed: {
     options () {
       const types = this.$store.getters.getQuestionTypeOptions()
-      types.forEach((item, index) => {
-        const selected = this.$store.getters.getSelectedOption(item.id)
-        this.$set(types[index], 'selected', selected)
-      })
       return types
     }
   }

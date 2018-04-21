@@ -1,9 +1,13 @@
 // Guardar estado inicial
 export const saveSurvey = (state, response) => {
   // Sólo se ejecuta si no existen los valores
-  if (typeof state.questionnaire !== 'undefined' && state.questionnaire.length > 0) {
+  if (typeof state.hash !== 'undefined' && state.hash !== '') {
     return
   }
+
+  // Hash y Survey
+  state.hash = response.hash
+  state.survey_id = response.id
 
   function shuffle (array) {
     let currentIndex = array.length
@@ -31,6 +35,7 @@ export const saveSurvey = (state, response) => {
   let options = {}
   let aids = {}
   let specifications = {}
+  let responseTime = {}
 
   // Backgrounds aleatorios de preguntas
   let backgrounds = {}
@@ -40,16 +45,14 @@ export const saveSurvey = (state, response) => {
   for (const qnn of response.questionnaire) {
     for (const q of qnn.questions) {
       questions[q.id] = ''
+      options[q.id] = ''
       aids[q.id] = []
-      specifications[q.id] = ''
+      specifications[q.id] = []
+      responseTime[q.id] = 0
 
-      //
+      // background
       if (i === classes.length) i = 0
       backgrounds[q.id] = classes[i]
-
-      for (const o of q.options) {
-        options[o.id] = false
-      }
 
       i++
     }
@@ -59,6 +62,7 @@ export const saveSurvey = (state, response) => {
   state.questions = questions
   state.options = options
   state.aids = aids
+  state.responseTime = responseTime
 
   state.specifications = specifications
   state.questionActive = ''
@@ -143,10 +147,6 @@ export const studiesAt = (state, payload) => {
   state.user.studies_at = payload
 }
 
-export const hash = (state, payload) => {
-  state.user.hash = payload
-}
-
 // Cuestionario
 // Mutación de datos de preguntas: respuestas iniciales, opciones, ayudas y especificaciones
 
@@ -159,19 +159,7 @@ export const question = (state, question) => {
 }
 
 export const option = (state, payload) => {
-  state
-    .questionnaire
-    .find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))
-    .questions
-    .find(question => parseInt(question.id) === parseInt(state.route.params.question_id))
-    .options
-    .forEach(option => {
-      if (parseInt(option.id) === parseInt(payload.value)) {
-        state.options[option.id] = true
-      } else {
-        state.options[option.id] = false
-      }
-    })
+  state.options[state.route.params.question_id] = payload.value
 }
 
 export const aids = (state, payload) => {
@@ -179,4 +167,18 @@ export const aids = (state, payload) => {
     state.aids[state.route.params.question_id] = []
   }
   state.aids[state.route.params.question_id] = payload.value
+}
+
+export const specifications = (state, payload) => {
+  if (Array.isArray(payload.value) === false) {
+    state.specifications[state.route.params.question_id] = []
+  }
+  state.specifications[state.route.params.question_id] = payload.value
+}
+
+export const responseTime = (state, payload) => {
+  if (typeof payload.questionId !== 'undefined' && typeof payload.startTime !== 'undefined') {
+    const time = state.responseTime[payload.questionId] + Math.round((performance.now() - payload.startTime) / 1000)
+    state.responseTime[payload.questionId] = time
+  }
 }

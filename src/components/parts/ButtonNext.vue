@@ -1,8 +1,12 @@
 <template>
-  <router-link :to="linkTo" :class="classes">Siguiente</router-link>
+  <router-link :to="linkTo" :class="classes">
+    Siguiente
+    <svgicon name="chevron-right" width="10" height="18" color="#34C595"></svgicon>
+  </router-link>
 </template>
 
 <script>
+import '@/assets/icons/chevron-right'
 export default {
   name: 'ButtonNext',
   props: {
@@ -39,5 +43,10 @@ export default {
   &:hover {
     background-color: $white;
   }
+}
+.svg-icon {
+  position: relative;
+  top: 3px;
+  left: 10px;
 }
 </style>

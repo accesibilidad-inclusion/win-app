@@ -8,9 +8,10 @@ import * as actions from './actions'
 Vue.use(Vuex)
 
 const state = {
+  hash: '',
+  survey_id: '',
   user: {
     id: null,
-    hash: null,
     disability: null,
     disability_types: [],
     consent: null,
@@ -32,7 +33,8 @@ const state = {
   questions: [],
   options: [],
   aids: [],
-  specifications: []
+  specifications: [],
+  responseTime: []
 }
 
 const store = new Vuex.Store({

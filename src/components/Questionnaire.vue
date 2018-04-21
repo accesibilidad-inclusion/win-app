@@ -9,7 +9,7 @@
     </div>
     <footer class="footer container">
       <button-audio></button-audio>
-      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_id + '/question/1'" :isDisabled="false"></button-next>
+      <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + questionnaire.questions[0].id" :isDisabled="false"></button-next>
     </footer>
   </div>
 </template>

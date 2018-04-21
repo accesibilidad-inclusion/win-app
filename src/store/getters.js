@@ -3,11 +3,16 @@ export const getQuestionnaire = (state) => () => {
   return state.questionnaire.find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))
 }
 
-export const getQuestion = (state, getters) => () => {
-  return getters
-    .getQuestionnaire()
-    .questions
-    .find(question => parseInt(question.id) === parseInt(state.route.params.question_id))
+export const getQuestion = (state, getters) => (questionId = state.route.params.question_id) => {
+  for (let questionnaire of state.questionnaire) {
+    let question = questionnaire
+      .questions
+      .find(question => parseInt(question.id) === parseInt(questionId))
+    if (typeof question === 'object') {
+      return question
+    }
+  }
+  return undefined
 }
 
 export const getQuestionIndex = (state, getters) => () => {
@@ -24,22 +29,9 @@ export const getQuestionTypeOptions = (state, getters) => () => {
   return getters.getQuestionOptions().filter(item => item.type === state.route.params.question_type)
 }
 
-export const getQuestionTypeOptionSelected = (state, getters) => () => {
-  const option = getters.getQuestionTypeOptions().find(option => state.options[option.id] === true)
-  if (typeof option === 'object') {
-    return option.id
-  }
-  return false
-}
-
-export const wereOptionsQuestionAnswered = (state, getters) => () => {
-  return getters.getQuestionOptions().filter(item => state.options[item.id] === true).length > 0
-}
-
 // Ayudas
-export const needsAids = (state, getters) => () => {
-  const option = getters.getQuestionOptions().find(option => state.options[option.id] === true)
-  return typeof option === 'object' && parseInt(option.value) === 4
+export const needsAids = (state, getters) => (questionId = state.route.params.question_id) => {
+  return parseInt(state.options[questionId]) === 4
 }
 
 export const getAidsOptions = (state) => () => {
@@ -50,37 +42,75 @@ export const getSpecificationsOptions = (state) => () => {
   return state.specificationsOptions
 }
 
-export const needsSpecification = (state, getters) => () => {
-  return getters.getQuestion().needs_specification
+export const needsSpecification = (state, getters) => (questionId = state.route.params.question_id) => {
+  const question = getters.getQuestion(questionId)
+  if (typeof question !== 'undefined' && question.needs_specification) {
+    return true
+  }
+  return false
 }
 
 // Valores guardados en objetos independientes
-export const getValueQuestion = (state) => () => {
-  return state.questions[state.route.params.question_id]
+export const getValueQuestion = (state) => (questionId = state.route.params.question_id) => {
+  return state.questions[questionId]
 }
 
-export const getSelectedOption = (state) => (optionId) => {
-  return state.options[optionId]
+export const getValueOptions = (state) => (questionId = state.route.params.question_id) => {
+  return state.options[questionId]
 }
 
-export const getValueAids = (state) => () => {
-  return state.aids[state.route.params.question_id]
+export const getValueOptionsMatchId = (state, getters) => (questionId = state.route.params.question_id) => {
+  const question = getters.getQuestion(questionId)
+  if (typeof question !== 'undefined') {
+    const option = question
+      .options
+      .find(option => parseInt(option.value) === parseInt(getters.getValueOptions(questionId)))
+    if (typeof option === 'object') {
+      return option.id
+    }
+  }
+  return ''
 }
 
-export const getValueSpecification = (state) => () => {
-  return state.specification[state.route.params.question_id]
+export const getValueAids = (state) => (questionId = state.route.params.question_id) => {
+  return state.aids[questionId]
+}
+
+export const getValueSpecifications = (state) => (questionId = state.route.params.question_id) => {
+  return state.specifications[questionId]
+}
+
+export const getResponseTime = (state) => (questionId = state.route.params.question_id) => {
+  return state.responseTime[questionId]
 }
 
 export const getQuestionActive = (state) => () => {
   return state.questionActive
 }
 
+// Consolidado de respuestas de pregunta
+export const getQuestionAnswers = (state, getters) => (questionId) => {
+  // Objeto de datos solicitado en el endpoint /answers
+  // https://admin.apoyos.win/docs.html#answers_post
+  const answers = {
+    survey_id: state.survey_id,
+    hash: state.hash,
+    subject_id: state.user.id,
+    question_id: parseInt(questionId),
+    option_id: getters.getValueOptionsMatchId(questionId),
+    aids: getters.getValueAids(questionId),
+    specification: getters.getValueSpecifications(questionId),
+    response_time: getters.getResponseTime(questionId)
+  }
+  return answers
+}
+
 // Control de término de preguntas, etapas y cuestionario
-export const isQuestionComplete = (state, getters) => () => {
-  const foo = typeof getters.getValueQuestion() === 'boolean' &&
-    getters.wereOptionsQuestionAnswered() &&
-    ((getters.needsAids() && getters.getValueAids().length > 0) || getters.needsAids() === false) &&
-    ((getters.needsSpecification() && getters.getValueSpecification() !== '') || getters.needsSpecification() === false)
+export const isQuestionComplete = (state, getters) => (questionId = state.route.params.question_id) => {
+  const foo = typeof getters.getValueQuestion(questionId) === 'boolean' &&
+    getters.getValueOptions(questionId) !== '' &&
+    ((getters.needsAids(questionId) && getters.getValueAids(questionId).length > 0) || getters.needsAids(questionId) === false) &&
+    ((getters.needsSpecification(questionId) && getters.getValueSpecifications(questionId).length > 0) || getters.needsSpecification(questionId) === false)
   return foo
 }
 
@@ -97,7 +127,7 @@ export const isAllComplete = (state) => () => {
   }
   // Si la cantidad de opciones marcadas como true es igual a la cantidad de preguntas
   // quire decir que todas las opciones fueron contestadas
-  if (Object.values(state.options).filter(option => option === true).length < state.questions.length) {
+  if (Object.values(state.options).filter(option => option !== '').length > 0) {
     return false
   }
   return true
