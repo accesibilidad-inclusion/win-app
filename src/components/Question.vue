@@ -22,7 +22,7 @@
       </transition>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="linkTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -142,6 +142,34 @@ export default {
       if (this.$route.name === 'question-specification') {
         return this.$store.getters.getValueSpecifications().length > 0
       }
+    },
+    textAudio () {
+      // enunciado superior
+      let text = this.title + '\n\n\n\n'
+      // alternativas básicas
+      if (this.$route.name === 'question') {
+        text += 'Sí' + '\n\n\n\n' + 'No'
+      }
+      // Opciones
+      if (this.$route.name === 'question-type') {
+        const options = this.$store.getters.getQuestionTypeOptions()
+        for (let option of options) {
+          text += option.label + '\n\n\n\n'
+        }
+      }
+      if (this.$route.name === 'question-aids') {
+        const options = this.$store.getters.getAidsOptions()
+        for (let option of options) {
+          text += option.label + '\n\n\n\n'
+        }
+      }
+      if (this.$route.name === 'question-specification') {
+        const options = this.$store.getters.getSpecificationsOptions()
+        for (let option of options) {
+          text += option.label + '\n\n\n\n'
+        }
+      }
+      return text
     }
   },
   watch: {

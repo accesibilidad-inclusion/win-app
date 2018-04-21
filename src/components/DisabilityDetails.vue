@@ -4,33 +4,22 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Qué tipo de discapacidad tienes?</h2>
-      <p>Puedes seleccionar más de una</p>
+      <h2>{{ title }}</h2>
+      <p>{{ label }}</p>
       <form>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="intelectual" id="intelectual" v-model="types" @change="update">
-          <label for="intelectual" class="custom-control-label">Intelectual</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="fisica" id="fisica" v-model="types" @change="update">
-          <label for="fisica" class="custom-control-label">Física</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="auditiva" id="auditiva" v-model="types" @change="update">
-          <label for="auditiva" class="custom-control-label">Auditiva</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="visual" id="visual" v-model="types" @change="update">
-          <label for="visual" class="custom-control-label">Visual</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" value="otra" id="otra" v-model="types" @change="update">
-          <label for="otra" class="custom-control-label">Otra</label>
-        </div>
+        <form-check
+          v-for="item in options"
+          :key="item.id"
+          :id="item.id"
+          :name="item.label"
+          :realValue="item.id"
+          :value="selectedValue"
+          @change="changeValue"
+        >{{ item.label }}</form-check>
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/consent'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -40,33 +29,53 @@
 import ButtonAudio from './parts/ButtonAudio'
 import ButtonPrev from './parts/ButtonPrev'
 import ButtonNext from './parts/ButtonNext'
+import FormCheck from './parts/FormCheck'
 
 export default {
   name: 'DisabilityDetails',
   components: {
     ButtonAudio,
     ButtonPrev,
-    ButtonNext
+    ButtonNext,
+    FormCheck
   },
   data () {
     return {
-      types: this.$store.state.user.disability_types
+      title: '¿Qué tipo de discapacidad tienes?',
+      label: 'Puedes seleccionar más de una',
+      selectedValue: this.$store.state.user.disability_types
     }
   },
   methods: {
-    update (event) {
-      const value = event.target.value
-      const checked = event.target.checked
-      if (checked) {
-        this.$store.commit('disabilityAdd', value)
+    changeValue (newValue) {
+      const index = this.selectedValue.indexOf(newValue)
+      if (index !== -1) {
+        this.selectedValue.splice(index, 1)
       } else {
-        this.$store.commit('disabilityRemove', value)
+        this.selectedValue.push(newValue)
       }
+      this.$store.commit('disabilityTypes', this.selectedValue)
     }
   },
   computed: {
+    options () {
+      return [
+        {id: 'intelectual', label: 'Intelectual'},
+        {id: 'fisica', label: 'Física'},
+        {id: 'auditiva', label: 'Auditiva'},
+        {id: 'visual', label: 'Visual'},
+        {id: 'otra', label: 'Otra'}
+      ]
+    },
     canContinue () {
-      return this.types.length > 0
+      return this.selectedValue.length > 0
+    },
+    textAudio () {
+      let text = this.title + '\n\n\n\n' + this.label + '\n\n\n\n\n'
+      for (let option of this.options) {
+        text += option.label + '\n\n\n\n'
+      }
+      return text
     }
   }
 }

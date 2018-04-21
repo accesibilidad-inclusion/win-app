@@ -84,15 +84,19 @@ export const disability = (state, payload) => {
   state.user.disability = payload
 }
 
-export const disabilityAdd = (state, payload) => {
-  state.user.disability_types.push(payload)
+export const disabilityTypes = (state, payload) => {
+  state.user.disability_types = payload
 }
-export const disabilityRemove = (state, payload) => {
-  const index = state.user.disability_types.indexOf(payload)
-  if (index !== -1) {
-    state.user.disability_types.splice(index, 1)
-  }
-}
+
+// export const disabilityAdd = (state, payload) => {
+//   state.user.disability_types.push(payload)
+// }
+// export const disabilityRemove = (state, payload) => {
+//   const index = state.user.disability_types.indexOf(payload)
+//   if (index !== -1) {
+//     state.user.disability_types.splice(index, 1)
+//   }
+// }
 
 export const consent = (state, payload) => {
   state.user.consent = payload

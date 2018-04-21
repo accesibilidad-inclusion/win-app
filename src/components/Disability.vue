@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Estás en situación de discapacidad?</h2>
+      <h2>{{ title }}</h2>
       <br>
       <form class="row">
         <div class="col-6 pr-4">
@@ -16,7 +16,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="continueTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -38,6 +38,7 @@ export default {
   },
   data () {
     return {
+      title: '¿Estás en situación de discapacidad?',
       selectedValue: this.$store.state.user.disability
     }
   },
@@ -53,6 +54,9 @@ export default {
     },
     continueTo () {
       return this.selectedValue === true ? '/disability-details' : '/consent'
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n' + 'Sí' + '\n\n\n\n' + 'No'
     }
   }
 }
