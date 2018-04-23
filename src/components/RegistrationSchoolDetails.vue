@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">¿A qué centro asistes o asististe?</h2>
+      <h2 class="mb-3">{{ title }}</h2>
       <form>
         <div class="form-group mb-4">
           <input type="text" class="form-control" v-model="studiesAt" @keyup="changeValue" placeholder="Ingresa el nombre del centro">
@@ -12,7 +12,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-success'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -32,6 +32,7 @@ export default {
   },
   data () {
     return {
+      title: '¿A qué centro asistes o asististe?',
       studiesAt: this.$store.state.user.studies_at
     }
   },
@@ -45,6 +46,9 @@ export default {
   computed: {
     canContinue () {
       return this.studiesAt !== ''
+    },
+    textAudio () {
+      return this.title
     }
   }
 }

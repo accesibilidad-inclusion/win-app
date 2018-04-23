@@ -4,8 +4,8 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Has asistido o asistes a algún centro de apoyo especial?</h2>
-      <p>Puede ser un grupo, escuela, institución o establecimiento</p>
+      <h2>{{ title }}</h2>
+      <p>{{ description }}</p>
       <br>
       <form class="row">
         <div class="col-6 pr-4">
@@ -17,7 +17,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="continueTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -39,6 +39,8 @@ export default {
   },
   data () {
     return {
+      title: '¿Has asistido o asistes a algún centro de apoyo especial?',
+      description: 'Puede ser un grupo, escuela, institución o establecimiento',
       selectedValue: this.$store.state.user.studies
     }
   },
@@ -54,6 +56,9 @@ export default {
     },
     continueTo () {
       return this.selectedValue === true ? '/registration-school-details' : '/registration-success'
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n\n' + this.description + '\n\n\n\n\n\n' + 'Sí' + '\n\n\n\n\n' + 'No'
     }
   }
 }

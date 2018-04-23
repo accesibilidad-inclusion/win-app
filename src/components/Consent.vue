@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       title: 'Consentimiento',
-      content: 'Tus datos personales serán privados y tendras acceso a todas tus respuestas. Todas las respuestas que ingreses a la aplicación serán analizadas de forma estrictamente confidencial por el equipo WIN',
+      content: 'Tus datos personales serán privados y tendrás acceso a todas tus respuestas. Todas las respuestas que ingreses a la aplicación serán analizadas de forma estrictamente confidencial por el equipo WIN',
       selectedValue: this.$store.state.user.consent
     }
   },
@@ -57,7 +57,7 @@ export default {
       return this.selectedValue === true ? '/registration' : '/welcome'
     },
     textAudio () {
-      return this.title + '\n\n\n\n' + this.content + '\n\n\n\n\n' + 'No acepto' + '\n\n\n\n' + 'Sí acepto'
+      return this.title + '\n\n\n\n' + this.content + '\n\n\n\n\n\n\n' + 'No acepto' + '\n\n\n\n' + 'Sí acepto'
     }
   }
 }

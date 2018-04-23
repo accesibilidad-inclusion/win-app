@@ -4,14 +4,14 @@
       <!-- <button-prev></button-prev> -->
     </header>
     <div class="main container">
-      <h2>¡Ya te has registrado!</h2>
-      <p>Ahora comenzarán las preguntas lorem dolor sit amet, consectetur adipiscing elit</p>
+      <h2>{{ title }}</h2>
+      <p>{{ description }}</p>
       <div class="wrapper-loading">
         <clip-loader :loading="!canContinue" :color="'#fff'" :size="'34px'"></clip-loader>
       </div>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="linkTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -31,12 +31,21 @@ export default {
     ButtonNext,
     ClipLoader
   },
+  data () {
+    return {
+      title: '¡Ya te has registrado!',
+      description: 'Ahora comenzarán las preguntas lorem dolor sit amet, consectetur adipiscing elit'
+    }
+  },
   computed: {
     linkTo () {
       return this.$store.state.questionnaire.length > 0 ? '/questionnaire/' + this.$store.state.questionnaire[0].id : ''
     },
     canContinue () {
       return this.$store.state.questionnaire.length > 0
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n\n\n' + this.description
     }
   },
   methods: {

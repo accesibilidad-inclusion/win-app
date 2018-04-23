@@ -4,8 +4,8 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>Tus datos</h2>
-      <p class="mb-3">Vayamos conociéndonos<br>¿Cómo te llamas?</p>
+      <h2>{{ title }}</h2>
+      <p class="mb-3">{{ description }}</p>
       <form>
         <div class="form-group mb-4">
           <label for="name">Nombre</label>
@@ -18,7 +18,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-birthday'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -38,6 +38,8 @@ export default {
   },
   data () {
     return {
+      title: 'Tus datos',
+      description: 'Vayamos conociéndonos. ¿Cómo te llamas?',
       name: this.$store.state.user.given_name,
       familyName: this.$store.state.user.family_name
     }
@@ -57,6 +59,9 @@ export default {
   computed: {
     canContinue () {
       return this.name !== '' && this.familyName !== ''
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n\n' + this.description + '\n\n\n\n\n' + 'Nombre' + '\n\n\n\n\n' + 'Apellido'
     }
   }
 }

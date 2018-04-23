@@ -8,7 +8,7 @@
       <p>{{ questionnaire.description }}</p>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/questionnaire/' + this.$route.params.questionnaire_id + '/question/' + questionnaire.questions[0].id" :isDisabled="false"></button-next>
     </footer>
   </div>
@@ -32,6 +32,11 @@ export default {
     ButtonPrev,
     ButtonNext,
     ButtonOption
+  },
+  computed: {
+    textAudio () {
+      return this.questionnaire.name + '\n\n\n\n\n' + this.questionnaire.description
+    }
   }
 }
 </script>

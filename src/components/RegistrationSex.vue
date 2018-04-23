@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">Indica tu sexo</h2>
+      <h2 class="mb-3">{{ title }}</h2>
       <form class="row">
         <div class="col-6 pr-2">
           <button-sex :name="'sex'" :defaultValue="'male'" :value="selectedValue" @change="changeValue">Hombre</button-sex>
@@ -15,7 +15,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-job'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -37,6 +37,7 @@ export default {
   },
   data () {
     return {
+      title: 'Indica tu sexo',
       selectedValue: this.$store.state.user.sex
     }
   },
@@ -49,6 +50,9 @@ export default {
   computed: {
     canContinue () {
       return this.selectedValue !== null
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n\n\n' + 'Hombre' + '\n\n\n\n\n' + 'Mujer'
     }
   }
 }

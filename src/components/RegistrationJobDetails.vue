@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">¿Dónde trabajas?</h2>
+      <h2 class="mb-3">{{ title }}</h2>
       <form>
         <div class="form-group mb-4">
           <input type="text" class="form-control" v-model="worksAt" @keyup="changeValue" placeholder="Ingresa tu lugar de trabajo">
@@ -12,7 +12,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-school'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -32,6 +32,7 @@ export default {
   },
   data () {
     return {
+      title: '¿Dónde trabajas?',
       worksAt: this.$store.state.user.works_at
     }
   },
@@ -45,6 +46,9 @@ export default {
   computed: {
     canContinue () {
       return this.worksAt !== ''
+    },
+    textAudio () {
+      return this.title
     }
   }
 }

@@ -4,7 +4,7 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>Fecha de nacimiento</h2>
+      <h2>{{ title }}</h2>
       <form>
         <div class="form-group mb-3 mr-4">
           <label for="day">Día</label>
@@ -21,7 +21,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-sex'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -43,6 +43,7 @@ export default {
   },
   data () {
     return {
+      title: 'Fecha de nacimiento',
       dayBirth: this.$store.state.user.dayBirth,
       monthBirth: this.$store.state.user.monthBirth,
       yearBirth: this.$store.state.user.yearBirth
@@ -80,6 +81,9 @@ export default {
     },
     canContinue () {
       return this.dayBirth !== null && this.dayBirth !== null && this.yearBirth !== null
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n' + 'Día' + '\n\n\n\n' + 'Mes' + '\n\n\n\n' + 'Año'
     }
   },
   methods: {

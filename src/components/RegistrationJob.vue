@@ -4,8 +4,8 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2>¿Tienes trabajo?</h2>
-      <p>Indícanos si realizas algún trabajo con remuneración</p>
+      <h2>{{ title }}</h2>
+      <p>{{ description }}</p>
       <br>
       <form class="row">
         <div class="col-6 pr-4">
@@ -17,7 +17,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="continueTo" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -39,6 +39,8 @@ export default {
   },
   data () {
     return {
+      title: '¿Tienes trabajo?',
+      description: 'Indícanos si realizas algún trabajo con remuneración',
       selectedValue: this.$store.state.user.works
     }
   },
@@ -54,6 +56,9 @@ export default {
     },
     continueTo () {
       return this.selectedValue === true ? '/registration-job-details' : '/registration-school'
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n\n' + this.description + '\n\n\n\n\n\n' + 'Sí' + '\n\n\n\n\n' + 'No'
     }
   }
 }

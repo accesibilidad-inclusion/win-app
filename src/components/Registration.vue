@@ -4,8 +4,8 @@
       <button-prev></button-prev>
     </header>
     <div class="main container">
-      <h2 class="mb-3">Registro</h2>
-      <p>Debes crear una cuenta ingresando tu Rut o DNI</p>
+      <h2 class="mb-3">{{ title }}</h2>
+      <p>{{ description }}</p>
       <form>
         <div class="form-group mb-4">
           <label for="id">RUT o DNI</label>
@@ -14,7 +14,7 @@
       </form>
     </div>
     <footer class="footer container">
-      <button-audio></button-audio>
+      <button-audio :text="textAudio"></button-audio>
       <button-next :linkTo="'/registration-names'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
@@ -34,6 +34,8 @@ export default {
   },
   data () {
     return {
+      title: 'Registro',
+      description: 'Debes crear una cuenta ingresando tu Rut o DNI',
       personalId: this.$store.state.user.personal_id
     }
   },
@@ -47,6 +49,9 @@ export default {
   computed: {
     canContinue () {
       return this.personalId !== ''
+    },
+    textAudio () {
+      return this.title + '\n\n\n\n' + this.description
     }
   }
 }
