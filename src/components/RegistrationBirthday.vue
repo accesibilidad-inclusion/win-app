@@ -55,15 +55,15 @@ export default {
     },
     months () {
       return [
-        { value: '1', text: 'Enero' },
-        { value: '2', text: 'Febrero' },
-        { value: '3', text: 'Marzo' },
-        { value: '4', text: 'Abril' },
-        { value: '5', text: 'Mayo' },
-        { value: '6', text: 'Junio' },
-        { value: '7', text: 'Julio' },
-        { value: '8', text: 'Agosto' },
-        { value: '9', text: 'Septiembre' },
+        { value: '01', text: 'Enero' },
+        { value: '02', text: 'Febrero' },
+        { value: '03', text: 'Marzo' },
+        { value: '04', text: 'Abril' },
+        { value: '05', text: 'Mayo' },
+        { value: '06', text: 'Junio' },
+        { value: '07', text: 'Julio' },
+        { value: '08', text: 'Agosto' },
+        { value: '09', text: 'Septiembre' },
         { value: '10', text: 'Octubre' },
         { value: '11', text: 'Noviembre' },
         { value: '12', text: 'Diciembre' }
@@ -99,10 +99,15 @@ export default {
       this.$store.commit('yearBirth', value)
       this.$store.commit('birthday', this.birthday)
     },
+    pad (num, size) {
+      let s = num + ''
+      while (s.length < size) s = '0' + s
+      return s
+    },
     arrayInts (start, end) {
       var array = []
       for (var i = start; i <= end; i++) {
-        array.push({ 'value': i, 'text': i })
+        array.push({ 'value': this.pad(i, 2), 'text': i })
       }
       return array
     }

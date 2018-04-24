@@ -1,6 +1,11 @@
 // Layout
 //
 
+html,
+body {
+  height: 100%
+}
+
 body {
   position: absolute;
   top: 0;
@@ -17,7 +22,8 @@ body {
   @extend .container-fluid;
 }
 
-.container--question {
+.container--question,
+.container--result {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

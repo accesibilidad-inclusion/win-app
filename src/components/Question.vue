@@ -88,7 +88,7 @@ export default {
       }
       // Cuestionario completo
       if (this.$route.name !== 'question' && this.$store.getters.isAllComplete()) {
-        return { name: 'completed' }
+        return { name: 'completed-questionnaire' }
       }
       // Etapa completa
       if (this.$route.name !== 'question' && this.$store.getters.isQuestionnaireComplete()) {

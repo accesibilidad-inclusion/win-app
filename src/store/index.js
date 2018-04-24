@@ -34,7 +34,8 @@ const state = {
   options: [],
   aids: [],
   specifications: [],
-  responseTime: []
+  responseTime: [],
+  results: []
 }
 
 const store = new Vuex.Store({

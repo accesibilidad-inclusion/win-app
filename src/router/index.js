@@ -25,6 +25,10 @@ import QuestionStart from '@/components/QuestionStart'
 import QuestionType from '@/components/QuestionType'
 import QuestionAids from '@/components/QuestionAids'
 import QuestionSpecification from '@/components/QuestionSpecification'
+// Ending
+import CompletedQuestionnaire from '@/components/CompletedQuestionnaire'
+import Results from '@/components/Results'
+import FinalResult from '@/components/FinalResult'
 
 Vue.use(Router)
 
@@ -136,6 +140,21 @@ export default new Router({
           ]
         }
       ]
+    },
+    {
+      path: '/completed-questionnaire',
+      name: 'completed-questionnaire',
+      component: CompletedQuestionnaire
+    },
+    {
+      path: '/result/:dimension_id',
+      name: 'result',
+      component: Results
+    },
+    {
+      path: '/final-result',
+      name: 'final-result',
+      component: FinalResult
     }
   ]
 })

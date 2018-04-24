@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import router from '@/router'
 // Se utilzan spinners desde https://github.com/greyby/vue-spinner
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
@@ -25,6 +26,11 @@ export default {
       color: '#fff',
       size: '35px'
     }
+  },
+  created: function () {
+    setTimeout(() => {
+      router.push('welcome')
+    }, 2000)
   }
 }
 </script>

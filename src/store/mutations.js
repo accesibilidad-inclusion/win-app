@@ -1,7 +1,7 @@
-// Guardar estado inicial
+// Guardar preguntas y estructura de datos de respuesta
 export const saveSurvey = (state, response) => {
-  // Sólo se ejecuta si no existen los valores
-  if (typeof state.hash !== 'undefined' && state.hash !== '') {
+  // Sólo se guardan datos si el hash guardado es distintp al hash de la respuesta
+  if (state.hash === response.hash) {
     return
   }
 
@@ -185,4 +185,13 @@ export const responseTime = (state, payload) => {
     const time = state.responseTime[payload.questionId] + Math.round((performance.now() - payload.startTime) / 1000)
     state.responseTime[payload.questionId] = time
   }
+}
+
+// Resultados
+
+export const results = (state, response) => {
+  if (state.results.length > 0) {
+    return
+  }
+  state.results = response.dimensions
 }

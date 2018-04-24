@@ -6,6 +6,9 @@ export const saveUser = ({ commit, state }) => {
     .then(
       response => {
         commit('userId', response.body.id)
+      },
+      response => {
+        console.log(response)
       }
     )
 }
@@ -13,10 +16,13 @@ export const saveUser = ({ commit, state }) => {
 export const newSurvey = ({ dispatch, commit, state }) => {
   const userId = state.user.id
   Vue.http
-    .post('https://admin.apoyos.win/api/v1/surveys', { subject_id: userId })
+    .post('https://admin.apoyos.win/api/v1/surveys', {subject_id: userId})
     .then(
       response => {
         commit('saveSurvey', response.body)
+      },
+      response => {
+        console.log(response)
       }
     )
 }
@@ -34,4 +40,10 @@ export const setResponseTime = ({ commit }, payload) => {
     commit('responseTime', payload)
     resolve()
   })
+}
+
+export const getResults = ({commit, state}) => {
+  Vue.http
+    .get('https://admin.apoyos.win/api/v1/surveys/' + state.survey_id + '/' + 'results', {params: {hash: state.hash}, headers: {'X-WIN-SURVEY-HASH': state.hash}})
+    .then(response => commit('results', response.body))
 }

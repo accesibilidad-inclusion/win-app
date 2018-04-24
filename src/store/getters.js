@@ -25,8 +25,8 @@ export const getQuestionOptions = (state, getters) => () => {
   return getters.getQuestion().options
 }
 
-export const getQuestionTypeOptions = (state, getters) => () => {
-  return getters.getQuestionOptions().filter(item => item.type === state.route.params.question_type)
+export const getQuestionTypeOptions = (state, getters) => (type = state.route.params.question_type) => {
+  return getters.getQuestionOptions().filter(item => item.type === type)
 }
 
 // Ayudas
@@ -44,7 +44,11 @@ export const getSpecificationsOptions = (state) => () => {
 
 export const needsSpecification = (state, getters) => (questionId = state.route.params.question_id) => {
   const question = getters.getQuestion(questionId)
-  if (typeof question !== 'undefined' && question.needs_specification) {
+  if (
+    typeof question !== 'undefined' &&
+    question.needs_specification &&
+    getters.getQuestionTypeOptions('yes').filter(option => parseInt(option.value) === parseInt(getters.getValueOptions())).length > 0
+  ) {
     return true
   }
   return false
@@ -127,7 +131,7 @@ export const isAllComplete = (state) => () => {
   }
   // Si la cantidad de opciones marcadas como true es igual a la cantidad de preguntas
   // quire decir que todas las opciones fueron contestadas
-  if (Object.values(state.options).filter(option => option !== '').length > 0) {
+  if (Object.values(state.options).filter(option => option === '').length > 0) {
     return false
   }
   return true
@@ -150,4 +154,21 @@ export const nextQuestionnaireId = (state, getters) => () => {
 // Backgrounds
 export const getQuestionBackground = (state) => () => {
   return state.backgrounds[state.route.params.question_id]
+}
+
+// Resultados
+export const getResult = (state) => () => {
+  return state.results.find(result => parseInt(result.id) === parseInt(state.route.params.dimension_id))
+}
+
+export const nextResultId = (state, getters) => () => {
+  const result = getters.getResult()
+  const index = state.results.indexOf(result)
+  return state.results[index + 1].id
+}
+
+export const wereResultsReviewed = (state, getters) => () => {
+  const result = getters.getResult()
+  const index = state.results.indexOf(result)
+  return typeof state.results[index + 1] === 'undefined'
 }
