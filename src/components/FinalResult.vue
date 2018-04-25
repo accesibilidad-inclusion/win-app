@@ -1,40 +1,41 @@
 <template>
   <div class="screen bg-main">
-    <header class="header container header--question">
+    <header class="header container header--result">
       <button-prev></button-prev>
       <div class="dimension-control">
         <span class="dimension-name">{{ title }}</span>
       </div>
     </header>
     <div class="main container">
-      <p>{{ description }}</p>
-      <div class="wrapper-loading">
-        <clip-loader :loading="!canContinue" :color="'#fff'" :size="'34px'"></clip-loader>
+      <div class="dimensions-graph">
+        <span v-for="item in this.$store.state.results" :key="item.id">
+          <dimension :classes="['dimension', 'dimension-' + item.id, item.level].join(' ')"></dimension>
+        </span>
       </div>
+      <p class="mt-3">{{ description }}</p>
     </div>
     <footer class="footer container">
       <button-audio :text="textAudio"></button-audio>
-<!--       <button-next :linkTo="linkTo" :isDisabled="!canContinue"></button-next> -->
     </footer>
   </div>
 </template>
 
 <script>
 import ButtonAudio from './parts/ButtonAudio'
-// import ButtonPrev from './parts/ButtonPrev'
-// import ButtonNext from './parts/ButtonNext'
+import ButtonPrev from './parts/ButtonPrev'
+import Dimension from './parts/Dimension'
 
 export default {
   name: 'FinalResult',
   components: {
-    ButtonAudio
-    // ButtonPrev,
-    // ButtonNext
+    ButtonAudio,
+    ButtonPrev,
+    Dimension
   },
   data () {
     return {
       title: 'Recomendaciones',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, ipsa, modi. Consequatur repudiandae consequuntur quod esse a tempora ullam tempore.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
     }
   },
   computed: {
@@ -49,7 +50,7 @@ export default {
 @import "~bootstrap/scss/functions";
 @import "./../assets/sass/_custom.scss";
 
-.header--question {
+.header--result {
   position: relative;
   display: flex;
   background-color: rgba($white, .2);
@@ -63,8 +64,20 @@ export default {
 }
 .dimension-name {
   margin-left: $spacer;
+  margin-top: 2px;
 }
-.dimension-indicator {
-  font-weight: 500;
+.dimensions-graph {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  &::before {
+    padding-top: 100%;
+    content: ''
+  }
+  span {
+    display: flex;
+    width: 50%;
+    height: 50%;
+  }
 }
 </style>

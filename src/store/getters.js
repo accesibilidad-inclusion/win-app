@@ -21,12 +21,12 @@ export const getQuestionIndex = (state, getters) => () => {
   return questions.indexOf(question)
 }
 
-export const getQuestionOptions = (state, getters) => () => {
-  return getters.getQuestion().options
+export const getQuestionOptions = (state, getters) => (questionId = state.route.params.question_id) => {
+  return getters.getQuestion(questionId).options
 }
 
-export const getQuestionTypeOptions = (state, getters) => (type = state.route.params.question_type) => {
-  return getters.getQuestionOptions().filter(item => item.type === type)
+export const getQuestionTypeOptions = (state, getters) => (questionId = state.route.params.question_id, type = state.route.params.question_type) => {
+  return getters.getQuestionOptions(questionId).filter(item => item.type === type)
 }
 
 // Ayudas
@@ -47,7 +47,7 @@ export const needsSpecification = (state, getters) => (questionId = state.route.
   if (
     typeof question !== 'undefined' &&
     question.needs_specification &&
-    getters.getQuestionTypeOptions('yes').filter(option => parseInt(option.value) === parseInt(getters.getValueOptions())).length > 0
+    getters.getQuestionTypeOptions(questionId, 'yes').filter(option => parseInt(option.value) === parseInt(getters.getValueOptions(questionId))).length > 0
   ) {
     return true
   }

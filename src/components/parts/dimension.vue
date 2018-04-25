@@ -1,24 +1,19 @@
 <template>
-  <div class="dimension-wrapper">
-    <div :class="classes"></div>
+  <div :class="classes">
+    <div class="dimension-inside"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Dimension',
-  props: ['result'],
-  computed: {
-    classes () {
-      return ['dimension', 'dimension-' + this.result.id, this.result.level].join(' ')
-    }
-  }
+  props: ['classes']
 }
 </script>
 
 <style lang="scss" scoped>
 // Wrapper
-.dimension-wrapper {
+.dimension {
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -30,21 +25,21 @@ export default {
 }
 
 // Dimension
-.dimension {
+.dimension-inside {
   position: absolute;
   height: 100%;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(#fff, .2);
+  background-color: rgba(#000, .1);
   border-radius: 100%;
   &::before,
   &::after {
     position: absolute;
     display: block;
     border-radius: 100%;
-    background-color: rgba(#fff, .2);
+    background-color: rgba(#000, .1);
     content: '';
   }
   &::before {
@@ -60,7 +55,7 @@ export default {
 }
 
 // Esquinas
-.top-left {
+.top-left .dimension-inside {
   border-top-left-radius: 0;
   &::before,
   &::after {
@@ -69,7 +64,7 @@ export default {
     border-top-left-radius: 0;
   }
 }
-.top-right {
+.top-right .dimension-inside {
   border-top-right-radius: 0;
   &::before,
   &::after {
@@ -78,7 +73,7 @@ export default {
     border-top-right-radius: 0;
   }
 }
-.bottom-left {
+.bottom-left .dimension-inside {
   border-bottom-left-radius: 0;
   &::before,
   &::after {
@@ -87,7 +82,7 @@ export default {
     border-bottom-left-radius: 0;
   }
 }
-.bottom-right {
+.bottom-right .dimension-inside {
   border-bottom-right-radius: 0;
   &::before,
   &::after {
@@ -101,29 +96,43 @@ export default {
 .dimension-1 {
   $color: #ffe356;
   @extend .bottom-right;
-  &.high { background-color: $color }
-  &.medium::after { background-color: $color }
-  &.low::before { background-color: $color }
+  &.high .dimension-inside,
+  &.icon-active .dimension-inside { background-color: $color }
+  &.medium .dimension-inside::after { background-color: $color }
+  &.low .dimension-inside::before { background-color: $color }
 }
 .dimension-5 {
   $color: #fb8460;
   @extend .bottom-left;
-  &.high { background-color: $color }
-  &.medium::after { background-color: $color }
-  &.low::before { background-color: $color }
+  &.high .dimension-inside,
+  &.icon-active .dimension-inside { background-color: $color }
+  &.medium .dimension-inside::after { background-color: $color }
+  &.low .dimension-inside::before { background-color: $color }
 }
 .dimension-9 {
   $color: #86e2d5;
-  @extend .top-left;
-  &.high { background-color: $color }
-  &.medium::after { background-color: $color }
-  &.low::before { background-color: $color }
+  @extend .top-right;
+  &.high .dimension-inside,
+  &.icon-active .dimension-inside { background-color: $color }
+  &.medium .dimension-inside::after { background-color: $color }
+  &.low .dimension-inside::before { background-color: $color }
 }
 .dimension-14 {
   $color: #90ee90;
-  @extend .top-right;
-  &.high { background-color: $color }
-  &.medium::after { background-color: $color }
-  &.low::before { background-color: $color }
+  @extend .top-left;
+  &.high .dimension-inside,
+  &.icon-active .dimension-inside { background-color: $color }
+  &.medium .dimension-inside::after { background-color: $color }
+  &.low .dimension-inside::before { background-color: $color }
+}
+
+// Icon
+.icon {
+  width: 12px;
+  height: 12px;
+  .dimension-inside:before,
+  .dimension-inside:after {
+    display: none;
+  }
 }
 </style>

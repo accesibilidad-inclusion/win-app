@@ -190,8 +190,5 @@ export const responseTime = (state, payload) => {
 // Resultados
 
 export const results = (state, response) => {
-  if (state.results.length > 0) {
-    return
-  }
   state.results = response.dimensions
 }
