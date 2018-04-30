@@ -130,6 +130,11 @@ export default {
   &.medium .dimension-inside::after { background-color: $color }
   &.low .dimension-inside::before { background-color: $color }
 }
+.dimension.high .dimension-inside::before,
+.dimension.high .dimension-inside::after,
+.dimension.medium .dimension-inside::before {
+  background-color: rgba(#fff, .2) !important
+}
 
 // Icon
 .icon {
