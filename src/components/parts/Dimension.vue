@@ -12,11 +12,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "./../../assets/sass/_bootstrap.scss";
+@import "./../../assets/sass/_custom.scss";
+
 // Wrapper
 .dimension {
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
   &::before {
     display: block;
     padding-top: 100%;
@@ -133,6 +138,20 @@ export default {
   .dimension-inside:before,
   .dimension-inside:after {
     display: none;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .dimension {
+    max-width: 260px;
+  }
+  .top-left,
+  .bottom-left {
+    margin-left: 0;
+  }
+  .top-right,
+  .bottom-right {
+    margin-right: 0;
   }
 }
 </style>

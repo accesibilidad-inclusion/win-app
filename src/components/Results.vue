@@ -16,7 +16,7 @@
       <transition name="fade">
         <div class="result" :key="result.id">
           <dimension :classes="['dimension', 'dimension-' + result.id, result.level].join(' ')"></dimension>
-          <p class="mt-3">{{ resultDescription }}</p>
+          <p class="result-description">{{ resultDescription }}</p>
         </div>
       </transition>
     </div>
@@ -115,5 +115,10 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
+}
+.result-description {
+  max-width: 500px;
+  margin: 1rem auto 0 auto;
+  line-height: 1.4;
 }
 </style>

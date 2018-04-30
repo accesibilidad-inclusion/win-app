@@ -12,7 +12,7 @@
           <dimension :classes="['dimension', 'dimension-' + item.id, item.level].join(' ')"></dimension>
         </span>
       </div>
-      <p class="mt-3">{{ description }}</p>
+      <p class="result-description">{{ description }}</p>
     </div>
     <footer class="footer container">
       <button-audio :text="textAudio"></button-audio>
@@ -70,6 +70,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   &::before {
     padding-top: 100%;
     content: ''
@@ -79,5 +81,10 @@ export default {
     width: 50%;
     height: 50%;
   }
+}
+.result-description {
+  max-width: 500px;
+  margin: 1rem auto 0 auto;
+  line-height: 1.4;
 }
 </style>
