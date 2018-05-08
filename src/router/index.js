@@ -7,6 +7,7 @@ import Welcome from '@/components/Welcome'
 import Disability from '@/components/Disability'
 import DisabilityDetails from '@/components/DisabilityDetails'
 import Consent from '@/components/Consent'
+import RejectedConsent from '@/components/RejectedConsent'
 // Registration
 import Registration from '@/components/Registration'
 import RegistrationNames from '@/components/RegistrationNames'
@@ -58,6 +59,11 @@ export default new Router({
       path: '/consent',
       name: 'consent',
       component: Consent
+    },
+    {
+      path: '/rejected-consent',
+      name: 'rejected-consent',
+      component: RejectedConsent
     },
     {
       path: '/registration',

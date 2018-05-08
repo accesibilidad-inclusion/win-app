@@ -54,7 +54,7 @@ export default {
       return this.selectedValue !== null
     },
     continueTo () {
-      return this.selectedValue === true ? '/registration' : '/welcome'
+      return this.selectedValue === true ? '/registration' : '/rejected-consent'
     },
     textAudio () {
       return this.title + '\n\n\n\n' + this.content + '\n\n\n\n\n\n\n' + 'No acepto' + '\n\n\n\n' + 'Sí acepto'
