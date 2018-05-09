@@ -16,8 +16,6 @@
 <script>
 import ButtonAudio from './parts/ButtonAudio'
 import ButtonPrev from './parts/ButtonPrev'
-import ButtonNext from './parts/ButtonNext'
-import ButtonOption from './parts/ButtonOption'
 
 export default {
   name: 'Consent',
