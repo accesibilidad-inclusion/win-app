@@ -2,17 +2,20 @@
   <div class="screen bg-main">
     <header class="header container header--result">
       <button-prev></button-prev>
-      <div class="dimension-control">
-        <span class="dimension-name">{{ title }}</span>
-      </div>
     </header>
     <div class="main container">
-      <div class="dimensions-graph">
+      <div class="dimensions-graph mb-3">
         <span v-for="item in this.$store.state.results" :key="item.id">
           <dimension :classes="['dimension', 'dimension-' + item.id, item.level].join(' ')"></dimension>
         </span>
       </div>
-      <p class="result-description">{{ description }}</p>
+      <h2 class="mb-3 text-center">{{ title }}</h2>
+      <form>
+        <div class="form-group mb-4">
+          <label for="name">{{ description }}</label>
+          <input type="email" id="email" name="email" class="form-control" v-model="email" @keyup="changeEmail" placeholder="Ingresa un correo electrónico">
+        </div>
+      </form>
     </div>
     <footer class="footer container">
       <button-audio :text="textAudio"></button-audio>
@@ -37,8 +40,16 @@ export default {
   },
   data () {
     return {
-      title: 'Recomendaciones',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+      title: '¡Gracias!',
+      description: 'Enviar a tu email electrónico.',
+      email: ''
+    }
+  },
+  methods: {
+    changeEmail (event) {
+      const value = event.target.value
+      this.email = value
+      this.$store.dispatch('sendByEmail', value)
     }
   },
   computed: {
@@ -76,7 +87,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 500px;
+  max-width: 150px;
   margin: 0 auto;
   &::before {
     padding-top: 100%;

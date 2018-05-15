@@ -30,6 +30,7 @@ import QuestionSpecification from '@/components/QuestionSpecification'
 import CompletedQuestionnaire from '@/components/CompletedQuestionnaire'
 import Results from '@/components/Results'
 import FinalResult from '@/components/FinalResult'
+import SendByEmail from '@/components/SendByEmail'
 
 Vue.use(Router)
 
@@ -161,6 +162,11 @@ export default new Router({
       path: '/final-result',
       name: 'final-result',
       component: FinalResult
+    },
+    {
+      path: '/send-by-email',
+      name: 'send-by-email',
+      component: SendByEmail
     }
   ]
 })

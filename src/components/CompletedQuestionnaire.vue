@@ -12,7 +12,7 @@
     </div>
     <footer class="footer container">
       <button-audio :text="textAudio"></button-audio>
-      <button-next :linkTo="linkTo" :isDisabled="!canContinue"></button-next>
+      <button-next :linkTo="'/final-result'" :isDisabled="!canContinue"></button-next>
     </footer>
   </div>
 </template>
@@ -38,9 +38,6 @@ export default {
     }
   },
   computed: {
-    linkTo () {
-      return this.$store.state.results.length > 0 ? '/result/' + this.$store.state.results[0].id : ''
-    },
     canContinue () {
       return this.$store.state.results.length > 0
     },

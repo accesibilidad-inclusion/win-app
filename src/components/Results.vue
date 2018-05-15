@@ -67,7 +67,7 @@ export default {
     },
     linkTo () {
       if (this.$store.getters.wereResultsReviewed()) {
-        return '/final-result'
+        return '/send-by-email'
       }
       return '/result/' + this.$store.getters.nextResultId()
     },

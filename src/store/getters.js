@@ -1,3 +1,16 @@
+// Hash y Survey id
+export const getHash = (state) => () => {
+  return state.hash
+}
+
+export const getSurveyId = (state) => () => {
+  return state.survey_id
+}
+
+export const getRoute = (state) => () => {
+  return state.route
+}
+
 // Datos del Cuestionario
 export const getQuestionnaire = (state) => () => {
   return state.questionnaire.find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))
