@@ -79,7 +79,7 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   &::before {
-    padding-top: 100%;
+    // padding-top: 100%;
     content: ''
   }
   span {

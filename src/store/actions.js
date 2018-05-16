@@ -44,6 +44,11 @@ export const setResponseTime = ({ commit }, payload) => {
 
 export const getResults = ({commit, state}) => {
   Vue.http
-    .get('https://admin.apoyos.win/api/v1/surveys/' + state.survey_id + '/' + 'results', {params: {hash: state.hash}, headers: {'X-WIN-SURVEY-HASH': state.hash}})
+    .get('https://admin.apoyos.win/api/v1/surveys/' + state.survey_id + '/results', {params: {hash: state.hash}, headers: {'X-WIN-SURVEY-HASH': state.hash}})
     .then(response => commit('results', response.body))
+}
+
+export const sendByEmail = ({commit, state}, payload) => {
+  Vue.http
+    .post('https://admin.apoyos.win/api/v1/surveys/' + state.survey_id + '/results/notify', {email: payload}, {params: {hash: state.hash}, headers: {'X-WIN-SURVEY-HASH': state.hash}})
 }
