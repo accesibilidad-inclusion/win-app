@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // Components
 import Splash from '@/components/Splash'
+import Event from '@/components/Event'
 import Welcome from '@/components/Welcome'
 import Disability from '@/components/Disability'
 import DisabilityDetails from '@/components/DisabilityDetails'
@@ -40,6 +41,11 @@ export default new Router({
       path: '/',
       name: 'splash',
       component: Splash
+    },
+    {
+      path: '/event/:hash',
+      name: 'event',
+      component: Event
     },
     {
       path: '/welcome',

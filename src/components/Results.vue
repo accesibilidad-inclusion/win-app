@@ -16,7 +16,7 @@
       <transition name="fade">
         <div class="result" :key="result.id">
           <dimension :classes="['dimension', 'dimension-' + result.id, result.level].join(' ')"></dimension>
-          <p class="result-description">{{ resultDescription }}</p>
+          <p class="result-description">{{ result.description }}</p>
         </div>
       </transition>
     </div>
@@ -45,26 +45,26 @@ export default {
     result () {
       return this.$store.getters.getResult()
     },
-    resultDescription () {
-      if (this.result.level === 'high') {
-        if (this.result.id === 1) return 'Tomas la iniciativa y decides qué cosas son importantes para ti'
-        if (this.result.id === 5) return 'Sabes muy bien lo que quieres y vas a por ello'
-        if (this.result.id === 9) return 'Piensas antes de hacer las cosas y eso te ayuda en tu vida'
-        if (this.result.id === 14) return 'Te sientes bien siendo tú mismo y sabes que eres valioso'
-      }
-      if (this.result.level === 'medium') {
-        if (this.result.id === 1) return 'Decides cosas importantes para ti, pero te falta tomar la iniciativa algunas veces'
-        if (this.result.id === 5) return 'Aunque sabes lo que quieres, tienes algunas dudas sobre cómo conseguirlo'
-        if (this.result.id === 9) return 'Muchas cosas de tu vida serían más fáciles si te parases a pensar antes de hacerlas'
-        if (this.result.id === 14) return 'Aunque te gusta cómo eres, te importa mucho lo que piensen los demás sobre ti'
-      }
-      if (this.result.level === 'low') {
-        if (this.result.id === 1) return 'Parece que necesitas ayuda para poder tomar decisiones. Piensa en cómo o quién podría ayudarte'
-        if (this.result.id === 5) return 'Te cuesta un poco saber qué cosas te gustan. Podrías hacer una lista de cosas importantes para ti'
-        if (this.result.id === 9) return 'A veces haces cosas sin pensar mucho en las consecuencias. Es importante que pienses en lo que puede pasar cuando haces algo'
-        if (this.result.id === 14) return 'Hay muchas cosas de ti que te gustaría cambiar. Seguro que también tienes muchas habilidades, piensa en ellas'
-      }
-    },
+    // resultDescription () {
+    //   if (this.result.level === 'high') {
+    //     if (this.result.id === 1) return 'Tomas la iniciativa y decides qué cosas son importantes para ti'
+    //     if (this.result.id === 5) return 'Sabes muy bien lo que quieres y vas a por ello'
+    //     if (this.result.id === 9) return 'Piensas antes de hacer las cosas y eso te ayuda en tu vida'
+    //     if (this.result.id === 14) return 'Te sientes bien siendo tú mismo y sabes que eres valioso'
+    //   }
+    //   if (this.result.level === 'medium') {
+    //     if (this.result.id === 1) return 'Decides cosas importantes para ti, pero te falta tomar la iniciativa algunas veces'
+    //     if (this.result.id === 5) return 'Aunque sabes lo que quieres, tienes algunas dudas sobre cómo conseguirlo'
+    //     if (this.result.id === 9) return 'Muchas cosas de tu vida serían más fáciles si te parases a pensar antes de hacerlas'
+    //     if (this.result.id === 14) return 'Aunque te gusta cómo eres, te importa mucho lo que piensen los demás sobre ti'
+    //   }
+    //   if (this.result.level === 'low') {
+    //     if (this.result.id === 1) return 'Parece que necesitas ayuda para poder tomar decisiones. Piensa en cómo o quién podría ayudarte'
+    //     if (this.result.id === 5) return 'Te cuesta un poco saber qué cosas te gustan. Podrías hacer una lista de cosas importantes para ti'
+    //     if (this.result.id === 9) return 'A veces haces cosas sin pensar mucho en las consecuencias. Es importante que pienses en lo que puede pasar cuando haces algo'
+    //     if (this.result.id === 14) return 'Hay muchas cosas de ti que te gustaría cambiar. Seguro que también tienes muchas habilidades, piensa en ellas'
+    //   }
+    // },
     linkTo () {
       if (this.$store.getters.wereResultsReviewed()) {
         return '/send-by-email'

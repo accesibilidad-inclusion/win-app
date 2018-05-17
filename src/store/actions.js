@@ -1,5 +1,18 @@
 import Vue from 'vue'
 
+export const getEvent = ({ commit, state }, payload) => {
+  Vue.http
+    .get('https://admin.apoyos.win/api/v1/events/' + payload)
+    .then(
+      response => {
+        commit('event', response.body)
+      },
+      response => {
+        console.log(response)
+      }
+    )
+}
+
 export const saveUser = ({ commit, state }) => {
   Vue.http
     .post('https://admin.apoyos.win/api/v1/subjects', state.user, {headers: {'X-WIN-SURVEY-HASH': state.hash}})

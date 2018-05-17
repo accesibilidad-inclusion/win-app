@@ -77,6 +77,11 @@ export const saveSurvey = (state, response) => {
   state.backgrounds = backgrounds
 }
 
+// Event
+export const event = (state, payload) => {
+  state.event = payload
+}
+
 // User
 // Mutación de datos de state.user en onboarding
 

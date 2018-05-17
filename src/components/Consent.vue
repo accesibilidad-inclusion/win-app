@@ -59,6 +59,13 @@ export default {
     textAudio () {
       return this.title + '\n\n\n\n' + this.content + '\n\n\n\n\n\n\n' + 'No acepto' + '\n\n\n\n' + 'Sí acepto'
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.$store.state.event !== null) {
+        vm.$router.push('registration')
+      }
+    })
   }
 }
 </script>

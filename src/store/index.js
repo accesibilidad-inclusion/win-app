@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const state = {
   hash: '',
+  event: null,
   survey_id: '',
   user: {
     id: null,
