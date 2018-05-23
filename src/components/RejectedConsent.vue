@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       title: 'No puedes seguir',
-      content: 'Al rechazar el consentimiento para recopilar tus datos, lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur deserunt iusto amet, nulla. Expedita quae facere illum aliquid, libero id modi, fugit maiores neque officiis aliquam. Rem, alias, dignissimos! Repellendus.'
+      content: 'Al rechazar el consentimiento para recopilar tus datos, no puedes continuar avanzando con las preguntas'
     }
   },
   computed: {

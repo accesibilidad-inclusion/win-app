@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       title: '¡Ya te has registrado!',
-      description: 'Ahora comenzarán las preguntas lorem dolor sit amet, consectetur adipiscing elit'
+      description: 'Gracias por completar tu información personal'
     }
   },
   computed: {
