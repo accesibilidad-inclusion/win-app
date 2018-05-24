@@ -13,6 +13,19 @@ export const getEvent = ({ commit, state }, payload) => {
     )
 }
 
+export const getImpearments = ({ commit, state }) => {
+  Vue.http
+    .get('https://admin.apoyos.win/api/v1/impairments')
+    .then(
+      response => {
+        commit('setImpearments', response.body)
+      },
+      response => {
+        console.log(response)
+      }
+    )
+}
+
 export const saveUser = ({ commit, state }) => {
   Vue.http
     .post('https://admin.apoyos.win/api/v1/subjects', state.user, {headers: {'X-WIN-SURVEY-HASH': state.hash}})

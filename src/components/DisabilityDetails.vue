@@ -43,10 +43,20 @@ export default {
     return {
       title: '¿Qué tipo de discapacidad tienes?',
       label: 'Puedes seleccionar más de una',
-      selectedValue: this.$store.state.user.disability_types
+      selectedValue: this.$store.state.user.impairments
     }
   },
   methods: {
+    // Helper para detectar cuando la propiedad user.id haya sido guardada en el state
+    // https://gist.github.com/granteagon/2238248
+    waitUntil (boolFn, callback, delay) {
+      const _this = this
+      // if delay is undefined or is not an integer
+      delay = (typeof (delay) === 'undefined' || isNaN(parseInt(delay, 10))) ? 100 : delay
+      setTimeout(function () {
+        (boolFn()) ? callback() : _this.waitUntil(boolFn, callback, delay)
+      }, delay)
+    },
     changeValue (newValue) {
       const index = this.selectedValue.indexOf(newValue)
       if (index !== -1) {
@@ -54,18 +64,21 @@ export default {
       } else {
         this.selectedValue.push(newValue)
       }
-      this.$store.commit('disabilityTypes', this.selectedValue)
+      this.$store.commit('impairments', this.selectedValue)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$store.dispatch('getImpearments').then(() => {
+        vm.waitUntil(() => {
+          return vm.$store.state.impearments.length > 0
+        }, 100)
+      })
+    })
   },
   computed: {
     options () {
-      return [
-        {id: 'intelectual', label: 'Intelectual'},
-        {id: 'fisica', label: 'Física'},
-        {id: 'auditiva', label: 'Auditiva'},
-        {id: 'visual', label: 'Visual'},
-        {id: 'otra', label: 'Otra'}
-      ]
+      return this.$store.getters.getImpearments()
     },
     canContinue () {
       return this.selectedValue.length > 0

@@ -11,6 +11,11 @@ export const getRoute = (state) => () => {
   return state.route
 }
 
+// Tipos de discapacidad
+export const getImpearments = (state) => () => {
+  return state.impearments
+}
+
 // Datos del Cuestionario
 export const getQuestionnaire = (state) => () => {
   return state.questionnaire.find(questionnaire => parseInt(questionnaire.id) === parseInt(state.route.params.questionnaire_id))

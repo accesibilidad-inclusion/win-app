@@ -14,7 +14,7 @@ const state = {
   user: {
     id: null,
     disability: null,
-    disability_types: [],
+    impairments: [],
     consent: null,
     consent_at: '',
     personal_id: '',
@@ -30,6 +30,7 @@ const state = {
     studies: null,
     studies_at: ''
   },
+  impearments: [],
   questionnaire: [],
   questions: [],
   options: [],
