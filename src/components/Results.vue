@@ -16,7 +16,7 @@
       <transition name="fade">
         <div class="result" :key="result.id">
           <dimension :classes="['dimension', 'dimension-' + result.id, result.level].join(' ')"></dimension>
-          <p class="result-description">{{ result.description }}</p>
+          <p class="result-description">{{ result.aid }}</p>
         </div>
       </transition>
     </div>

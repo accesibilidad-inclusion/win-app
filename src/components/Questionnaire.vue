@@ -88,11 +88,11 @@ export default {
 .stagebars--2 .stagebar:nth-child(2) {
   background-color: #fb8460;
 }
-.stagebars--4 .stagebar:nth-child(2),
-.stagebars--3 .stagebar:nth-child(2) {
+.stagebars--4 .stagebar:nth-child(3),
+.stagebars--3 .stagebar:nth-child(3) {
   background-color: #86e2d5;
 }
-.stagebars--4 {
+.stagebars--4 .stagebar:nth-child(4) {
   background-color: #90ee90;
 }
 </style>
