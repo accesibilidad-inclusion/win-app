@@ -190,10 +190,15 @@ export default {
         .dispatch('setResponseTime', {questionId: from.params.question_id, startTime: this.startTime})
         .then(() => {
           this.startTime = performance.now()
-          this.$store.dispatch('saveQuestionAnswers', from.params.question_id)
+          this.$store
+            .dispatch('saveQuestionAnswers', from.params.question_id)
+            .then(() => {
+              next()
+            })
         })
+    } else {
+      next()
     }
-    next()
   },
   beforeRouteLeave (to, from, next) {
     if (from.params.question_id !== undefined) {
@@ -201,10 +206,15 @@ export default {
         .dispatch('setResponseTime', {questionId: from.params.question_id, startTime: this.startTime})
         .then(() => {
           this.startTime = performance.now()
-          this.$store.dispatch('saveQuestionAnswers', from.params.question_id)
+          this.$store
+            .dispatch('saveQuestionAnswers', from.params.question_id)
+            .then(() => {
+              next()
+            })
         })
+    } else {
+      next()
     }
-    next()
   }
 }
 </script>
